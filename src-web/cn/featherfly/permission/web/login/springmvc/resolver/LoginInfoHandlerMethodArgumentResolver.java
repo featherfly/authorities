@@ -21,7 +21,7 @@ import cn.featherfly.permission.web.login.WebApplicationLoginManager;
  * 
  * @author 钟冀
  */
-public abstract class LoginInfoHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver{
+public class LoginInfoHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver{
 
 	/**
 	 * {@inheritDoc}
