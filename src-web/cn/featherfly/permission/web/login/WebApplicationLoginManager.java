@@ -4,7 +4,6 @@ package cn.featherfly.permission.web.login;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import cn.featherfly.permission.core.PermissionActor;
 import cn.featherfly.permission.login.ApplicationLoginManager;
 
 /**
@@ -14,7 +13,7 @@ import cn.featherfly.permission.login.ApplicationLoginManager;
  *
  * @author 钟冀
  */
-public interface WebApplicationLoginManager<A extends PermissionActor> extends ApplicationLoginManager<HttpServletRequest, WebLoginInfo<A>, A>{
+public interface WebApplicationLoginManager<W extends WebLoginInfo> extends ApplicationLoginManager<HttpServletRequest, W>{
 	/**
 	 * <p>
 	 * 注销
@@ -29,7 +28,7 @@ public interface WebApplicationLoginManager<A extends PermissionActor> extends A
 	 * @param session HttpSession
 	 * @return 指定行动者的登录信息
 	 */
-	WebLoginInfo<A> getLoginInfo(HttpSession session);
+	W getLoginInfo(HttpSession session);
 //	/**
 //	 * <p>
 //	 * 获取指定行动者的登录信息.

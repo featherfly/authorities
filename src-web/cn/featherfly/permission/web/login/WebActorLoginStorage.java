@@ -13,7 +13,7 @@ import cn.featherfly.permission.login.ActorLoginStorage;
  *
  * @author 钟冀
  */
-public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLoginStorage<WebLoginInfo<A>, A>{
+public interface WebActorLoginStorage<W extends WebLoginInfo> extends ActorLoginStorage<W>{
 	/**
 	 * <p>
 	 * 存储
@@ -23,7 +23,7 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @param actor 行动者
 	 */
 	@Override
-	void store(String key, A actor);
+	<A extends PermissionActor> void store(String key, A actor);
 	/**
 	 * <p>
 	 * 移除
@@ -32,7 +32,7 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @param actor 行动者
 	 */
 	@Override
-	void remove(A actor);
+	<A extends PermissionActor> void remove(A actor);
 	/**
 	 * <p>
 	 * 移除
@@ -49,7 +49,7 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @return 指定行动者的登录信息
 	 */
 	@Override
-	WebLoginInfo<A> getLoginInfo(String key);
+	W getLoginInfo(String key);
 	/**
 	 * <p>
 	 * 获取指定行动者的登录信息.
@@ -59,7 +59,7 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @return 指定行动者的登录信息
 	 */
 	@Override
-	WebLoginInfo<A> getLoginInfo(A actor);
+	<A extends PermissionActor> W getLoginInfo(A actor);
 	/**
 	 * <p>
 	 * 获取登录的行动者.
@@ -68,7 +68,7 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @return 登录的行动者
 	 */
 	@Override
-	List<A> getLoginActors();
+	<A extends PermissionActor> List<A> getLoginActors();
 	/**
 	 * <p>
 	 * 获取登录的行动者.
@@ -76,5 +76,5 @@ public interface WebActorLoginStorage<A extends PermissionActor> extends ActorLo
 	 * @return 登录的行动者
 	 */
 	@Override
-	List<WebLoginInfo<A>> getLoginInfos();
+	List<W> getLoginInfos();
 }

@@ -1,7 +1,6 @@
 
 package cn.featherfly.permission.login;
 
-import cn.featherfly.permission.core.PermissionActor;
 
 
 /**
@@ -12,7 +11,7 @@ import cn.featherfly.permission.core.PermissionActor;
  * @param <I> 具体的LoginInfo类型
  * @author 钟冀
  */
-public class LoginEvent<I extends LoginInfo<A>, A extends PermissionActor> {
+public class LoginEvent<I extends LoginInfo> {
 
 	/**
 	 */

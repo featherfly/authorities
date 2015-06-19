@@ -13,7 +13,7 @@ import cn.featherfly.permission.core.PermissionActor;
  * @param <I> 登录信息
  * @author 钟冀
  */
-public interface ActorLoginStorage<I extends LoginInfo<A>, A extends PermissionActor> {
+public interface ActorLoginStorage<I extends LoginInfo> {
 	/**
 	 * <p>
 	 * 存储
@@ -22,7 +22,7 @@ public interface ActorLoginStorage<I extends LoginInfo<A>, A extends PermissionA
 	 * @param key 唯一标示
 	 * @param actor 行动者
 	 */
-	void store(String key, A actor);
+    <A extends PermissionActor> void store(String key, A actor);
 	/**
 	 * <p>
 	 * 移除
@@ -30,7 +30,7 @@ public interface ActorLoginStorage<I extends LoginInfo<A>, A extends PermissionA
 	 * @param <A> 行动者具体类型
 	 * @param actor 行动者
 	 */
-	void remove(A actor);
+    <A extends PermissionActor> void remove(A actor);
 	/**
 	 * <p>
 	 * 是否包含指定key
@@ -62,7 +62,7 @@ public interface ActorLoginStorage<I extends LoginInfo<A>, A extends PermissionA
 	 * @param actor 行动者
 	 * @return 指定行动者的登录信息
 	 */
-	I getLoginInfo(A actor);
+	<A extends PermissionActor> I getLoginInfo(A actor);
 	/**
 	 * <p>
 	 * 获取登录的行动者.
@@ -70,7 +70,7 @@ public interface ActorLoginStorage<I extends LoginInfo<A>, A extends PermissionA
 	 * @param <A> 行动者具体类型
 	 * @return 登录的行动者
 	 */
-	List<A> getLoginActors();
+	<A extends PermissionActor> List<A> getLoginActors();
 	/**
 	 * <p>
 	 * 获取登录的行动者.

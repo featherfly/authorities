@@ -95,7 +95,7 @@ uploadArchives {
             pom.project {  
                 name project.name  
                 packaging 'jar'
-                description 'simple object record map'  
+                description 'permission tool'  
                 url 'https://github.com/featherfly/permission.git'  
   
                 scm {  
