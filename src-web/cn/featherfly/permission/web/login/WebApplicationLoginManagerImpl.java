@@ -26,7 +26,7 @@ import cn.featherfly.web.servlet.ServletUtils;
  *
  * @author 钟冀
  */
-public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements WebApplicationLoginManager<W> {
+public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends PermissionActor> implements WebApplicationLoginManager<W, A> {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(WebApplicationLoginManagerImpl.class);
@@ -49,7 +49,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 */
 	
     @Override
-	public <A extends PermissionActor> void login(A actor, HttpServletRequest request) {
+	public void login(A actor, HttpServletRequest request) {
 		LOGGER.debug("登录: {}", actor.getDescp());
 		if (LangUtils.isEmpty(authenticators)) {
 			throw new PermissionException("@permission#authenticators.null");
@@ -74,9 +74,9 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 		webActorLoginStorage.store(key, actor);
 		W webLoginInfo = getLoginInfo(request);
 		webLoginInfo.setIp(ServletUtils.getIpAddr(request));
-		LoginEvent<W> loginEvent = new LoginEvent<W>();
+		LoginEvent<W, A> loginEvent = new LoginEvent<W, A>();
 		loginEvent.setLoginInfo(webLoginInfo);
-		for (LoginListener<W> loginListener : loginListeners) {
+		for (LoginListener<W, A> loginListener : loginListeners) {
 			loginListener.onLogin(loginEvent);
 		}
 	}
@@ -94,7 +94,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> boolean isLogin(A actor) {
+	public boolean isLogin(A actor) {
 		return getLoginInfo(actor) != null;
 	}
 
@@ -125,7 +125,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> void logout(A actor) {
+	public void logout(A actor) {
 		if (actor != null) {
 			LOGGER.debug("注销：{}", actor.getDescp());
 			webActorLoginStorage.remove(actor);
@@ -136,7 +136,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> List<A> getLoginActors() {
+	public List<A> getLoginActors() {
 		return webActorLoginStorage.getLoginActors();
 	}
 
@@ -160,7 +160,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> W getLoginInfo(A actor) {
+	public W getLoginInfo(A actor) {
 		return webActorLoginStorage.getLoginInfo(actor);
 	}
 
@@ -168,7 +168,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addLoginListener(LoginListener<W> loginListener) {
+	public void addLoginListener(LoginListener<W, A> loginListener) {
 		loginListeners.add(loginListener);
 	}
 
@@ -207,9 +207,9 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	//
 	// ********************************************************************
 
-	private WebActorLoginStorage<W> webActorLoginStorage;
+	private WebActorLoginStorage<W, A> webActorLoginStorage;
 
-	private List<LoginListener<W>> loginListeners = new ArrayList<LoginListener<W>>();
+	private List<LoginListener<W, A>> loginListeners = new ArrayList<LoginListener<W, A>>();
 
 //	private Map<String, WebLoginInfo> webLoginInfos = new HashMap<String, WebLoginInfo>();
 	
@@ -236,7 +236,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * 设置webActorLoginStorage
 	 * @param webActorLoginStorage webActorLoginStorage
 	 */
-	public void setWebActorLoginStorage(WebActorLoginStorage<W> webActorLoginStorage) {
+	public void setWebActorLoginStorage(WebActorLoginStorage<W, A> webActorLoginStorage) {
 		this.webActorLoginStorage = webActorLoginStorage;
 	}
 
@@ -244,7 +244,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo> implements W
 	 * 设置loginListeners
 	 * @param loginListeners loginListeners
 	 */
-	public void setLoginListeners(List<LoginListener<W>> loginListeners) {
+	public void setLoginListeners(List<LoginListener<W, A>> loginListeners) {
 		this.loginListeners = loginListeners;
 	}
 

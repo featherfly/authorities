@@ -42,14 +42,14 @@ public abstract class LoginInfoHandlerMethodArgumentResolver implements HandlerM
 	    return applicationLoginManager.getLoginInfo((HttpServletRequest) webRequest.getNativeRequest());
 	}
 	
-	private WebApplicationLoginManager<?> applicationLoginManager;
+	private WebApplicationLoginManager<?, ?> applicationLoginManager;
 
     /**
      * 设置applicationLoginManager
      * @param applicationLoginManager applicationLoginManager
      */
     public void setApplicationLoginManager(
-            WebApplicationLoginManager<?> applicationLoginManager) {
+            WebApplicationLoginManager<?, ?> applicationLoginManager) {
         this.applicationLoginManager = applicationLoginManager;
     }	
 }

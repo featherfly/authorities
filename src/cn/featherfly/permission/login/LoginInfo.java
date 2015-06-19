@@ -17,13 +17,13 @@ import cn.featherfly.permission.core.PermissionActor;
  *
  * @author 钟冀
  */
-public class LoginInfo {
+public class LoginInfo<A extends PermissionActor> {
 	/**
 	 */
 	public LoginInfo() {
 	}
 
-	private PermissionActor actor;
+	private A actor;
 
 	private Date loginTime;
 
@@ -33,8 +33,7 @@ public class LoginInfo {
 	 * 返回actor
 	 * @return actor
 	 */
-	@SuppressWarnings("unchecked")
-    public <A extends PermissionActor> A getActor() {
+    public A getActor() {
 		return (A) actor;
 	}
 
@@ -42,7 +41,7 @@ public class LoginInfo {
 	 * 设置actor
 	 * @param actor actor
 	 */
-	public <A extends PermissionActor> void setActor(A actor) {
+	public void setActor(A actor) {
 		this.actor = actor;
 	}
 

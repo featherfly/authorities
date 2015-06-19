@@ -17,7 +17,7 @@ import cn.featherfly.permission.core.PermissionActor;
  *
  * @author 钟冀
  */
-public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> implements WebActorLoginStorage<W> {
+public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A extends PermissionActor> implements WebActorLoginStorage<W, A> {
 
 	private Map<String, W> webLoginInfos = new HashMap<String, W>();
 
@@ -26,7 +26,12 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> imple
 	public AbstractWebActorLoginStorage() {
 	}
 	
-	
+	/**
+	 * <p>
+	 * 创建LoginInfo
+	 * </p>
+	 * @return
+	 */
 	protected abstract W createLoginInfo();
 
 
@@ -34,7 +39,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> void store(String key, A actor) {
+	public void store(String key, A actor) {
 		W webLoginInfo = createLoginInfo();
 		webLoginInfo.setActor(actor);
 		webLoginInfo.setLoginTime(new Date());
@@ -46,7 +51,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> void remove(A actor) {
+	public void remove(A actor) {
 		if (actor != null) {
 			webLoginInfos.remove(
 					getLoginInfo(actor).getSession());
@@ -73,7 +78,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> W getLoginInfo(A actor) {
+	public W getLoginInfo(A actor) {
 		if (actor != null) {
 			for (W webLoginInfo : webLoginInfos.values()) {
 				if (webLoginInfo.getActor().getId().equals(actor.getId())) {
@@ -88,7 +93,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <A extends PermissionActor> List<A> getLoginActors() {
+	public List<A> getLoginActors() {
 		ArrayList<A> actors = new ArrayList<A>();
 		for (W loginActor : webLoginInfos.values()) {
 		    A a = loginActor.getActor();

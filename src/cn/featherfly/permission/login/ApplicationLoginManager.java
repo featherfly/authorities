@@ -14,7 +14,7 @@ import cn.featherfly.permission.core.PermissionActor;
  * @param <I> 登录信息
  * @author 钟冀
  */
-public interface ApplicationLoginManager<E, I extends LoginInfo> {
+public interface ApplicationLoginManager<E, I extends LoginInfo<A>, A extends PermissionActor> {
 	/**
 	 * <p>
 	 * 登录.
@@ -24,7 +24,7 @@ public interface ApplicationLoginManager<E, I extends LoginInfo> {
 	 * @param actor 行动者
 	 * @param env 依赖环境
 	 */
-    <A extends PermissionActor> void login(A actor, E env);
+    void login(A actor, E env);
 	/**
 	 * <p>
 	 * 是否登录.
@@ -41,7 +41,7 @@ public interface ApplicationLoginManager<E, I extends LoginInfo> {
 	 * @param actor 行动者
 	 * @return 是否登录.
 	 */
-	<A extends PermissionActor> boolean isLogin(A actor);
+	boolean isLogin(A actor);
 	/**
 	 * <p>
 	 * 注销
@@ -56,7 +56,7 @@ public interface ApplicationLoginManager<E, I extends LoginInfo> {
 	 * @param <A> 行动者具体类型
 	 * @param actor 行动者
 	 */
-	<A extends PermissionActor> void logout(A actor);
+	void logout(A actor);
 	/**
 	 * <p>
 	 * 获取登录的行动者.
@@ -64,7 +64,7 @@ public interface ApplicationLoginManager<E, I extends LoginInfo> {
 	 * @param <A> 行动者具体类型
 	 * @return 登录的行动者
 	 */
-	<A extends PermissionActor> List<A> getLoginActors();
+	List<A> getLoginActors();
 	/**
 	 * <p>
 	 * 获取指定行动者的登录信息.
@@ -81,12 +81,12 @@ public interface ApplicationLoginManager<E, I extends LoginInfo> {
 	 * @param actor 行动者
 	 * @return 指定行动者的登录信息
 	 */
-	<A extends PermissionActor> I getLoginInfo(A actor);
+	I getLoginInfo(A actor);
 	/**
 	 * <p>
 	 * 添加登录监听器
 	 * </p>
 	 * @param loginListener loginListener
 	 */
-	void addLoginListener(LoginListener<I> loginListener);
+	void addLoginListener(LoginListener<I, A> loginListener);
 }

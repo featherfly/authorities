@@ -1,6 +1,8 @@
 
 package cn.featherfly.permission.web.login;
 
+import cn.featherfly.permission.core.PermissionActor;
+
 
 /**
  * <p>
@@ -10,7 +12,7 @@ package cn.featherfly.permission.web.login;
  *
  * @author 钟冀
  */
-public class WebActorLoginStorageSimpleImpl extends AbstractWebActorLoginStorage<WebLoginInfo>{
+public class WebActorLoginStorageSimpleImpl extends AbstractWebActorLoginStorage<WebLoginInfo<PermissionActor>, PermissionActor>{
 
 	/**
 	 */
@@ -21,7 +23,7 @@ public class WebActorLoginStorageSimpleImpl extends AbstractWebActorLoginStorage
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected WebLoginInfo createLoginInfo() {
-	    return new WebLoginInfo();
+	protected WebLoginInfo<PermissionActor> createLoginInfo() {
+	    return new WebLoginInfo<PermissionActor>();
 	}
 }

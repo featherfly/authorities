@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AuthorizedInterceptor implements HandlerInterceptor {
 
-    private WebApplicationLoginManager<?> applicationLoginManager;
+    private WebApplicationLoginManager<?, ?> applicationLoginManager;
     
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -127,7 +127,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
      * @param applicationLoginManager applicationLoginManager
      */
     public void setApplicationLoginManager(
-            WebApplicationLoginManager<?> applicationLoginManager) {
+            WebApplicationLoginManager<?, ?> applicationLoginManager) {
         this.applicationLoginManager = applicationLoginManager;
     }
 }
