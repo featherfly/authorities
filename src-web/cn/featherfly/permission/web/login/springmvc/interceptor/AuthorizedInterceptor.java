@@ -34,6 +34,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
     
     private String charset = "UTF-8";
+    
+    private String authenticateURL = "/";
 
     public AuthorizedInterceptor() {
     }
@@ -63,6 +65,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
             if (!applicationLoginManager.isLogin(request)) {
                 result.setMessage(ResourceBundleUtils.getString("@permission#session.invalidation"));
                 request.getSession().invalidate();
+                response.setHeader("WWW-Authenticate", authenticateURL);
                 if (request.getHeader("Accept").contains("application/json")) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     render(response, result);
@@ -105,7 +108,14 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
         }
     }
 
-    
+    /**
+     * 设置authenticateURL
+     * @param authenticateURL authenticateURL
+     */
+    public void setAuthenticateURL(String authenticateURL) {
+        this.authenticateURL = authenticateURL;
+    }
+
     /**
      * 设置excludeURI
      * @param excludes excludeURI

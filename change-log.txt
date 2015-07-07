@@ -1,3 +1,5 @@
+2015-07-07 0.1.5 发布
+1.AuthorizedInterceptor 加入authenticateURL参数用于设置WWW-Authenticate请求头
 2015-06-19 0.1.4 发布
 1.LoginInfoHandlerMethodArgumentResolver去掉抽象修饰符
 2015-06-19 0.1.3 发布
