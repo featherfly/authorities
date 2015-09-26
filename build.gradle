@@ -70,7 +70,7 @@ publishing {
   
 dependencies {  
     compile ('cn.featherfly:featherfly-common:1.2.8'
-            ,'cn.featherfly:featherfly-web-springmvc:0.1.5'
+            ,'cn.featherfly:featherfly-web-springmvc:latest.integration'
             )
     
     testCompile (
