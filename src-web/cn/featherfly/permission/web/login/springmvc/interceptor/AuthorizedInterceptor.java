@@ -51,7 +51,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         Result<?> result = new Result<Object>();
-
+        result.setStatus(0);
         String uri = ServletUtils.getRequestURI(request);
         logger.debug("uri -> {}", uri);
         boolean exclude = false;
