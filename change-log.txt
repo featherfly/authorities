@@ -1,3 +1,6 @@
+2016-04-28 0.1.7 发布
+1.request.getSession().invalidate() 加入try catch
+
 2015-07-07 0.1.5 发布
 1.AuthorizedInterceptor 加入authenticateURL参数用于设置WWW-Authenticate请求头
 2015-06-19 0.1.4 发布

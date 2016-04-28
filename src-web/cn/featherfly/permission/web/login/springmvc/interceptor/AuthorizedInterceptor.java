@@ -14,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.featherfly.common.i18n.ResourceBundleUtils;
+import cn.featherfly.common.lang.LogUtils;
 import cn.featherfly.permission.web.login.WebApplicationLoginManager;
 import cn.featherfly.web.servlet.ServletUtils;
 import cn.featherfly.web.spring.servlet.view.Result;
@@ -63,8 +64,12 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
         }
         if (!exclude) {
             if (!applicationLoginManager.isLogin(request)) {
-                result.setMessage(ResourceBundleUtils.getString("@permission#session.invalidation"));
-                request.getSession().invalidate();
+                try {
+                    result.setMessage(ResourceBundleUtils.getString("@permission#session.invalidation"));
+                    request.getSession().invalidate();
+                } catch (Exception e) {
+                    LogUtils.debug(e, logger);
+                }
                 response.setHeader("WWW-Authenticate", authenticateURL);
                 if (request.getHeader("Accept").contains("application/json")) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
