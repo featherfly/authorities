@@ -69,7 +69,7 @@ publishing {
 }
   
 dependencies {  
-    compile ('cn.featherfly:featherfly-common:1.2.8'
+    compile ('cn.featherfly:featherfly-common:1.5.1'
             ,'cn.featherfly:featherfly-web-springmvc:latest.integration'
             )
     
