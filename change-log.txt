@@ -1,3 +1,6 @@
+2016-07-29 0.1.8 发布
+1.WebApplicationLoginManagerImpl 加入checkCrossSession属性，判断是否检查串session问题
+
 2016-04-28 0.1.7 发布
 1.request.getSession().invalidate() 加入try catch
 

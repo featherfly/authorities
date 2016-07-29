@@ -56,8 +56,8 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 		}
 		// 判断串session
 		String key = request.getSession().getId();
-		W info = webActorLoginStorage.getLoginInfo(key);
-		if (info != null) {
+		W info = webActorLoginStorage.getLoginInfo(key);		
+		if (info != null && checkCrossSession) {
 			if (!info.getActor().getId().equals(actor.getId())) {
 				throw new AuthenticationException("@permission#session.with.account");
 			}
@@ -214,6 +214,8 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 //	private Map<String, WebLoginInfo> webLoginInfos = new HashMap<String, WebLoginInfo>();
 	
 	private boolean sameOnline;
+	
+	private boolean checkCrossSession;
     
     /**
      * 返回sameOnline
@@ -267,4 +269,20 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 	public void setAuthenticators(@SuppressWarnings("rawtypes") List<WebAuthenticator> authenticators) {
 		this.authenticators = authenticators;
 	}
+
+    /**
+     * 返回checkCrossSession
+     * @return checkCrossSession
+     */
+    public boolean isCheckCrossSession() {
+        return checkCrossSession;
+    }
+
+    /**
+     * 设置checkCrossSession
+     * @param checkCrossSession checkCrossSession
+     */
+    public void setCheckCrossSession(boolean checkCrossSession) {
+        this.checkCrossSession = checkCrossSession;
+    }
 }
