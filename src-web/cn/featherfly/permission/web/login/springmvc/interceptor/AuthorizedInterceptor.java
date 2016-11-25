@@ -22,10 +22,19 @@ import cn.featherfly.web.spring.servlet.view.Result;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * <p>
+ * AuthorizedInterceptor
+ * </p>
+ * 
+ * @author 钟冀
+ */
 public class AuthorizedInterceptor implements HandlerInterceptor {
 
     private WebApplicationLoginManager<?, ?> applicationLoginManager;
-    
+    /**
+     * logger
+     */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -33,11 +42,13 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
     private Collection<String> excludes = new HashSet<>();
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
-    
-    private String charset = "UTF-8";
-    
-    private String authenticateURL = "/";
 
+    private String charset = "UTF-8";
+
+    private String authenticateURL = "/";
+    /**
+     * 
+     */
     public AuthorizedInterceptor() {
     }
 
@@ -49,14 +60,14 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response, Object handler) throws Exception {
+            HttpServletResponse response, Object handler) throws Exception {
         Result<?> result = new Result<Object>();
         result.setStatus(0);
         String uri = ServletUtils.getRequestURI(request);
         logger.debug("uri -> {}", uri);
         boolean exclude = false;
         for (String excludeUri : excludes) {
-//			if (uri.matches(excludeUri)) {
+            // if (uri.matches(excludeUri)) {
             if (antPathMatcher.match(excludeUri, uri)) {
                 exclude = true;
                 break;
@@ -65,7 +76,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
         if (!exclude) {
             if (!applicationLoginManager.isLogin(request)) {
                 try {
-                    result.setMessage(ResourceBundleUtils.getString("@permission#session.invalidation"));
+                    result.setMessage(ResourceBundleUtils
+                            .getString("@permission#session.invalidation"));
                     request.getSession().invalidate();
                 } catch (Exception e) {
                     LogUtils.debug(e, logger);
@@ -75,7 +87,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     render(response, result);
                 } else {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, result.getMessage());
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                            result.getMessage());
                 }
                 return false;
             }
@@ -86,8 +99,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
     // 在业务处理器处理请求执行完成后,生成视图之前执行的动作
     @Override
     public void postHandle(HttpServletRequest request,
-                           HttpServletResponse response, Object handler,
-                           ModelAndView modelAndView) throws Exception {
+            HttpServletResponse response, Object handler,
+            ModelAndView modelAndView) throws Exception {
     }
 
     /**
@@ -97,13 +110,13 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request,
-                                HttpServletResponse response, Object handler, Exception ex)
+            HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
     }
 
     private void render(HttpServletResponse response, Object result) {
         try {
-            response.setContentType("application/json;charset="+charset);
+            response.setContentType("application/json;charset=" + charset);
             response.setCharacterEncoding(charset);
             objectMapper.setSerializationInclusion(Include.NON_EMPTY)
                     .writerFor(result.getClass())
@@ -115,7 +128,9 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 
     /**
      * 设置authenticateURL
-     * @param authenticateURL authenticateURL
+     * 
+     * @param authenticateURL
+     *            authenticateURL
      */
     public void setAuthenticateURL(String authenticateURL) {
         this.authenticateURL = authenticateURL;
@@ -123,7 +138,9 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 
     /**
      * 设置excludeURI
-     * @param excludes excludeURI
+     * 
+     * @param excludes
+     *            excludeURI
      */
     public void setExcludes(Collection<String> excludes) {
         this.excludes = excludes;
@@ -131,7 +148,9 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 
     /**
      * 设置charset
-     * @param charset charset
+     * 
+     * @param charset
+     *            charset
      */
     public void setCharset(String charset) {
         this.charset = charset;
@@ -139,7 +158,9 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 
     /**
      * 设置applicationLoginManager
-     * @param applicationLoginManager applicationLoginManager
+     * 
+     * @param applicationLoginManager
+     *            applicationLoginManager
      */
     public void setApplicationLoginManager(
             WebApplicationLoginManager<?, ?> applicationLoginManager) {

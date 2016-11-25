@@ -1,4 +1,3 @@
-
 package cn.featherfly.permission.web.login.listener;
 
 import javax.servlet.http.HttpSessionEvent;
@@ -10,7 +9,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import cn.featherfly.permission.web.login.WebApplicationLoginManager;
 
-
 /**
  * <p>
  * WebActorLoginListener
@@ -20,30 +18,34 @@ import cn.featherfly.permission.web.login.WebApplicationLoginManager;
  */
 public class WebActorLoginListener implements HttpSessionListener {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(WebActorLoginListener.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(WebActorLoginListener.class);
 
-	/**
+    /**
 	 */
-	public WebActorLoginListener() {
-	}
+    public WebActorLoginListener() {
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void sessionCreated(HttpSessionEvent event) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sessionCreated(HttpSessionEvent event) {
 
-	}
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void sessionDestroyed(HttpSessionEvent event) {
-	    WebApplicationContext context = (WebApplicationContext) event.getSession().getServletContext()
-                .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-	    context.getBean(WebApplicationLoginManager.class).logout(event.getSession());
-	    LOGGER.debug("session销毁");
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sessionDestroyed(HttpSessionEvent event) {
+        WebApplicationContext context = (WebApplicationContext) event
+                .getSession()
+                .getServletContext()
+                .getAttribute(
+                        WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        context.getBean(WebApplicationLoginManager.class).logout(
+                event.getSession());
+        LOGGER.debug("session销毁");
+    }
 }

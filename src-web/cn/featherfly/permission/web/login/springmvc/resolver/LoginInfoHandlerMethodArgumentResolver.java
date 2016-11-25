@@ -1,4 +1,3 @@
-
 package cn.featherfly.permission.web.login.springmvc.resolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,35 +20,41 @@ import cn.featherfly.permission.web.login.WebApplicationLoginManager;
  * 
  * @author 钟冀
  */
-public class LoginInfoHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver{
+public class LoginInfoHandlerMethodArgumentResolver implements
+        HandlerMethodArgumentResolver {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean supportsParameter(MethodParameter parameter) {
-		return parameter.hasParameterAnnotation(Login.class)
-				&& ClassUtils.isParent(LoginInfo.class, parameter.getParameterType());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        return parameter.hasParameterAnnotation(Login.class)
+                && ClassUtils.isParent(LoginInfo.class,
+                        parameter.getParameterType());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Object resolveArgument(MethodParameter parameter,
-			ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
-			WebDataBinderFactory binderFactory) throws Exception {
-	    return applicationLoginManager.getLoginInfo((HttpServletRequest) webRequest.getNativeRequest());
-	}
-	
-	private WebApplicationLoginManager<?, ?> applicationLoginManager;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object resolveArgument(MethodParameter parameter,
+            ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
+            WebDataBinderFactory binderFactory) throws Exception {
+        return applicationLoginManager
+                .getLoginInfo((HttpServletRequest) webRequest
+                        .getNativeRequest());
+    }
+
+    private WebApplicationLoginManager<?, ?> applicationLoginManager;
 
     /**
      * 设置applicationLoginManager
-     * @param applicationLoginManager applicationLoginManager
+     * 
+     * @param applicationLoginManager
+     *            applicationLoginManager
      */
     public void setApplicationLoginManager(
             WebApplicationLoginManager<?, ?> applicationLoginManager) {
         this.applicationLoginManager = applicationLoginManager;
-    }	
+    }
 }

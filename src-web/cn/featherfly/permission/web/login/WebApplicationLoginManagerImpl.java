@@ -1,4 +1,3 @@
-
 package cn.featherfly.permission.web.login;
 
 import java.util.ArrayList;
@@ -24,201 +23,203 @@ import cn.featherfly.web.servlet.ServletUtils;
  * WebApplicationLoginManagerImpl
  * </p>
  *
+ * @param <W>
+ *            登陆信息
+ * @param <A>
+ *            行动者具体类型
  * @author 钟冀
  */
-public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends PermissionActor> implements WebApplicationLoginManager<W, A> {
+public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends PermissionActor>
+        implements WebApplicationLoginManager<W, A> {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(WebApplicationLoginManagerImpl.class);
-	
-	/*
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(WebApplicationLoginManagerImpl.class);
+
+    /*
      * 登录用户存放在环境对象中的KEY
      */
-    //public static final String LOGIN_USER_KEY = "app.loginUserKey";
-	
+    // public static final String LOGIN_USER_KEY = "app.loginUserKey";
+
     /**
 	 */
-	public WebApplicationLoginManagerImpl() {
-	}
+    public WebApplicationLoginManagerImpl() {
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	/**
-	 * {@inheritDoc}
-	 */
-	
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * {@inheritDoc}
+     */
+
     @Override
-	public void login(A actor, HttpServletRequest request) {
-		LOGGER.debug("登录: {}", actor.getDescp());
-		if (LangUtils.isEmpty(authenticators)) {
-			throw new PermissionException("@permission#authenticators.null");
-		}
-		// 判断串session
-		String key = request.getSession().getId();
-		W info = webActorLoginStorage.getLoginInfo(key);		
-		if (info != null && checkCrossSession) {
-			if (!info.getActor().getId().equals(actor.getId())) {
-				throw new AuthenticationException("@permission#session.with.account");
-			}
-		}
-		// 授权验证
-//		authrizate(request, webActorLoginStorage.getLoginActors().size());
-		for (@SuppressWarnings("unchecked") WebAuthenticator<A> authenticator : authenticators) {
-			authenticator.authenticate(actor, request);
-		}
-		if (!isSameOnline() && isLogin(actor)) {
-			LOGGER.debug("{}已经登录，注销之前的登录信息并重新登录", actor.getDescp());
-			logout(actor);
-		}
-		webActorLoginStorage.store(key, actor);
-		W webLoginInfo = getLoginInfo(request);
-		webLoginInfo.setIp(ServletUtils.getIpAddr(request));
-		LoginEvent<W, A> loginEvent = new LoginEvent<W, A>();
-		loginEvent.setLoginInfo(webLoginInfo);
-		for (LoginListener<W, A> loginListener : loginListeners) {
-			loginListener.onLogin(loginEvent);
-		}
-	}
+    public void login(A actor, HttpServletRequest request) {
+        LOGGER.debug("登录: {}", actor.getDescp());
+        if (LangUtils.isEmpty(authenticators)) {
+            throw new PermissionException("@permission#authenticators.null");
+        }
+        // 判断串session
+        String key = request.getSession().getId();
+        W info = webActorLoginStorage.getLoginInfo(key);
+        if (info != null && checkCrossSession) {
+            if (!info.getActor().getId().equals(actor.getId())) {
+                throw new AuthenticationException(
+                        "@permission#session.with.account");
+            }
+        }
+        // 授权验证
+        // authrizate(request, webActorLoginStorage.getLoginActors().size());
+        for (@SuppressWarnings("unchecked") WebAuthenticator<A> authenticator : authenticators) {
+            authenticator.authenticate(actor, request);
+        }
+        if (!isSameOnline() && isLogin(actor)) {
+            LOGGER.debug("{}已经登录，注销之前的登录信息并重新登录", actor.getDescp());
+            logout(actor);
+        }
+        webActorLoginStorage.store(key, actor);
+        W webLoginInfo = getLoginInfo(request);
+        webLoginInfo.setIp(ServletUtils.getIpAddr(request));
+        LoginEvent<W, A> loginEvent = new LoginEvent<W, A>();
+        loginEvent.setLoginInfo(webLoginInfo);
+        for (LoginListener<W, A> loginListener : loginListeners) {
+            loginListener.onLogin(loginEvent);
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isLogin(HttpServletRequest request) {
-//		authrizate(request, webActorLoginStorage.getLoginActors().size());
-		return webActorLoginStorage.containsKey(request.getSession().getId());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isLogin(HttpServletRequest request) {
+        // authrizate(request, webActorLoginStorage.getLoginActors().size());
+        return webActorLoginStorage.containsKey(request.getSession().getId());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isLogin(A actor) {
-		return getLoginInfo(actor) != null;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isLogin(A actor) {
+        return getLoginInfo(actor) != null;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void logout(HttpServletRequest request) {
-		logout(request.getSession());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logout(HttpServletRequest request) {
+        logout(request.getSession());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void logout(HttpSession session) {
-		if (LOGGER.isDebugEnabled()) {
-			W webLoginInfo = getLoginInfo(session);
-			if (webLoginInfo != null) {
-				LOGGER.debug("注销：{}", webLoginInfo.getActor()
-										.getDescp());
-			}
-		}
-		webActorLoginStorage.remove(session.getId());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logout(HttpSession session) {
+        if (LOGGER.isDebugEnabled()) {
+            W webLoginInfo = getLoginInfo(session);
+            if (webLoginInfo != null) {
+                LOGGER.debug("注销：{}", webLoginInfo.getActor().getDescp());
+            }
+        }
+        webActorLoginStorage.remove(session.getId());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void logout(A actor) {
-		if (actor != null) {
-			LOGGER.debug("注销：{}", actor.getDescp());
-			webActorLoginStorage.remove(actor);
-		}
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logout(A actor) {
+        if (actor != null) {
+            LOGGER.debug("注销：{}", actor.getDescp());
+            webActorLoginStorage.remove(actor);
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<A> getLoginActors() {
-		return webActorLoginStorage.getLoginActors();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<A> getLoginActors() {
+        return webActorLoginStorage.getLoginActors();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public W getLoginInfo(HttpServletRequest request) {
-		return getLoginInfo(request.getSession());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public W getLoginInfo(HttpServletRequest request) {
+        return getLoginInfo(request.getSession());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public W getLoginInfo(HttpSession session) {
-		return webActorLoginStorage.getLoginInfo(session.getId());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public W getLoginInfo(HttpSession session) {
+        return webActorLoginStorage.getLoginInfo(session.getId());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public W getLoginInfo(A actor) {
-		return webActorLoginStorage.getLoginInfo(actor);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public W getLoginInfo(A actor) {
+        return webActorLoginStorage.getLoginInfo(actor);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addLoginListener(LoginListener<W, A> loginListener) {
-		loginListeners.add(loginListener);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addLoginListener(LoginListener<W, A> loginListener) {
+        loginListeners.add(loginListener);
+    }
 
-	// ********************************************************************
-	//
-	// ********************************************************************
-/*
-	private void authrizate(HttpServletRequest request, int inlineNum) {
-		License license = License.getFromPersistence();
-		if (license == null) {
-			//没有注册
-			String msg = "该产品尚未注册，需进行注册。";
-			request.setAttribute(AuthorizationAction.NO_AUTHORIZATION_MESSAGE, msg);
-			throw new AuthrizationAuthenticationException(msg);
-		} else if (license.isOvertime()) {
-			//过期
-			String msg = "许可证已过期！（许可证日期到："
-					+ DateUtils.formart(license.getEndDate(), "yyyy-MM-dd") + "），需重新注册。";
-			request.setAttribute(AuthorizationAction.NO_AUTHORIZATION_MESSAGE, msg);
-			throw new AuthrizationAuthenticationException(msg);
-		} else if (!license.hasMoreOnLineUser(inlineNum)) {
-			throw new AuthrizationAuthenticationException("已经达到最大在线用户数（"
-					+ license.getOnLineUserNumber() + "）！");
-		}
-	}
-*/
-//	private <A extends Actor> A getActor(HttpServletRequest request) {
-//		return (A) request.getSession().getAttribute(LOGIN_USER_KEY);
-//	}
-//
-//	private <A extends Actor> void setActor(HttpServletRequest request, A actor) {
-//		request.getSession().setAttribute(LOGIN_USER_KEY, actor);
-//	}
+    // ********************************************************************
+    //
+    // ********************************************************************
+    /*
+     * private void authrizate(HttpServletRequest request, int inlineNum) {
+     * License license = License.getFromPersistence(); if (license == null) {
+     * //没有注册 String msg = "该产品尚未注册，需进行注册。";
+     * request.setAttribute(AuthorizationAction.NO_AUTHORIZATION_MESSAGE, msg);
+     * throw new AuthrizationAuthenticationException(msg); } else if
+     * (license.isOvertime()) { //过期 String msg = "许可证已过期！（许可证日期到：" +
+     * DateUtils.formart(license.getEndDate(), "yyyy-MM-dd") + "），需重新注册。";
+     * request.setAttribute(AuthorizationAction.NO_AUTHORIZATION_MESSAGE, msg);
+     * throw new AuthrizationAuthenticationException(msg); } else if
+     * (!license.hasMoreOnLineUser(inlineNum)) { throw new
+     * AuthrizationAuthenticationException("已经达到最大在线用户数（" +
+     * license.getOnLineUserNumber() + "）！"); } }
+     */
+    // private <A extends Actor> A getActor(HttpServletRequest request) {
+    // return (A) request.getSession().getAttribute(LOGIN_USER_KEY);
+    // }
+    //
+    // private <A extends Actor> void setActor(HttpServletRequest request, A
+    // actor) {
+    // request.getSession().setAttribute(LOGIN_USER_KEY, actor);
+    // }
 
-	// ********************************************************************
-	//
-	// ********************************************************************
+    // ********************************************************************
+    //
+    // ********************************************************************
 
-	private WebActorLoginStorage<W, A> webActorLoginStorage;
+    private WebActorLoginStorage<W, A> webActorLoginStorage;
 
-	private List<LoginListener<W, A>> loginListeners = new ArrayList<LoginListener<W, A>>();
+    private List<LoginListener<W, A>> loginListeners = new ArrayList<LoginListener<W, A>>();
 
-//	private Map<String, WebLoginInfo> webLoginInfos = new HashMap<String, WebLoginInfo>();
-	
-	private boolean sameOnline;
-	
-	private boolean checkCrossSession;
-    
+    // private Map<String, WebLoginInfo> webLoginInfos = new HashMap<String,
+    // WebLoginInfo>();
+
+    private boolean sameOnline;
+
+    private boolean checkCrossSession;
+
     /**
      * 返回sameOnline
+     * 
      * @return sameOnline
      */
     public boolean isSameOnline() {
@@ -227,51 +228,62 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置sameOnline
-     * @param sameOnline sameOnline
+     * 
+     * @param sameOnline
+     *            sameOnline
      */
     public void setSameOnline(boolean sameOnline) {
         this.sameOnline = sameOnline;
     }
 
+    /**
+     * 设置webActorLoginStorage
+     * 
+     * @param webActorLoginStorage
+     *            webActorLoginStorage
+     */
+    public void setWebActorLoginStorage(
+            WebActorLoginStorage<W, A> webActorLoginStorage) {
+        this.webActorLoginStorage = webActorLoginStorage;
+    }
 
-	/**
-	 * 设置webActorLoginStorage
-	 * @param webActorLoginStorage webActorLoginStorage
-	 */
-	public void setWebActorLoginStorage(WebActorLoginStorage<W, A> webActorLoginStorage) {
-		this.webActorLoginStorage = webActorLoginStorage;
-	}
+    /**
+     * 设置loginListeners
+     * 
+     * @param loginListeners
+     *            loginListeners
+     */
+    public void setLoginListeners(List<LoginListener<W, A>> loginListeners) {
+        this.loginListeners = loginListeners;
+    }
 
-	/**
-	 * 设置loginListeners
-	 * @param loginListeners loginListeners
-	 */
-	public void setLoginListeners(List<LoginListener<W, A>> loginListeners) {
-		this.loginListeners = loginListeners;
-	}
+    @SuppressWarnings("rawtypes")
+    private List<WebAuthenticator> authenticators = new ArrayList<WebAuthenticator>();
 
-	@SuppressWarnings("rawtypes")
-	private List<WebAuthenticator> authenticators = new ArrayList<WebAuthenticator>();
+    /**
+     * 返回authenticators
+     * 
+     * @return authenticators
+     */
+    @SuppressWarnings("rawtypes")
+    public List<WebAuthenticator> getAuthenticators() {
+        return authenticators;
+    }
 
-	/**
-	 * 返回authenticators
-	 * @return authenticators
-	 */
-	@SuppressWarnings("rawtypes")
-	public List<WebAuthenticator> getAuthenticators() {
-		return authenticators;
-	}
-
-	/**
-	 * 设置authenticators
-	 * @param authenticators authenticators
-	 */
-	public void setAuthenticators(@SuppressWarnings("rawtypes") List<WebAuthenticator> authenticators) {
-		this.authenticators = authenticators;
-	}
+    /**
+     * 设置authenticators
+     * 
+     * @param authenticators
+     *            authenticators
+     */
+    public void setAuthenticators(
+            @SuppressWarnings("rawtypes") List<WebAuthenticator> authenticators) {
+        this.authenticators = authenticators;
+    }
 
     /**
      * 返回checkCrossSession
+     * 
      * @return checkCrossSession
      */
     public boolean isCheckCrossSession() {
@@ -280,7 +292,9 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置checkCrossSession
-     * @param checkCrossSession checkCrossSession
+     * 
+     * @param checkCrossSession
+     *            checkCrossSession
      */
     public void setCheckCrossSession(boolean checkCrossSession) {
         this.checkCrossSession = checkCrossSession;
