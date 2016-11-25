@@ -1,3 +1,7 @@
+2016-11-25 0.1.9 发布
+    1.加入ValidCodeAuthenticator，废弃ValidateCodeAuthenticator
+    2.Exception继承自LocalizedException
+
 2016-07-29 0.1.8 发布
 1.WebApplicationLoginManagerImpl 加入checkCrossSession属性，判断是否检查串session问题
 

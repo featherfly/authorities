@@ -3,7 +3,7 @@ package cn.featherfly.permission.exception;
 
 import java.util.Locale;
 
-import cn.featherfly.common.exception.StandardResourceBundleException;
+import cn.featherfly.common.exception.LocalizedException;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import cn.featherfly.common.exception.StandardResourceBundleException;
  *
  * @author 钟冀
  */
-public class PermissionException extends StandardResourceBundleException {
+public class PermissionException extends LocalizedException {
 
 	/**
 	 *
