@@ -40,10 +40,16 @@ public class ValidCodeAuthenticator<A extends PermissionActor> implements
                 validCode = valid.toString();
             }
         }
-        if (LangUtils.isNotEmpty(validCode)) {
-            if (validCode.equals(request.getSession().getAttribute(
-                    VALID_CODE_KEY))) {
-                return;
+        Object storedValidCode = request.getSession().getAttribute(VALID_CODE_KEY);            
+        if (LangUtils.isNotEmpty(validCode) && storedValidCode != null) {            
+            if (caseSensitive) {
+                if (validCode.equals(storedValidCode.toString())) {
+                    return;
+                }
+            } else {
+                if (validCode.equalsIgnoreCase(storedValidCode.toString())) {
+                    return;
+                }
             }
         }
         throw new AuthenticationException("@permission#validateCode.error");
@@ -79,4 +85,21 @@ public class ValidCodeAuthenticator<A extends PermissionActor> implements
         request.getSession().setAttribute(VALID_CODE_KEY, validCode);
     }
 
+    private boolean caseSensitive;
+
+    /**
+     * 返回caseSensitive
+     * @return caseSensitive
+     */
+    public boolean isCaseSensitive() {
+        return caseSensitive;
+    }
+
+    /**
+     * 设置caseSensitive
+     * @param caseSensitive caseSensitive
+     */
+    public void setCaseSensitive(boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
+    }
 }

@@ -1,3 +1,6 @@
+2016-12-08 0.1.10 发布
+    1.ValidCodeAuthenticator加入忽略大小写设置
+    
 2016-11-25 0.1.9 发布
     1.加入ValidCodeAuthenticator，废弃ValidateCodeAuthenticator
     2.Exception继承自LocalizedException
