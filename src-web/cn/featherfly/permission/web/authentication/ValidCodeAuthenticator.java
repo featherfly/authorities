@@ -40,7 +40,7 @@ public class ValidCodeAuthenticator<A extends PermissionActor> implements
                 validCode = valid.toString();
             }
         }
-        Object storedValidCode = request.getSession().getAttribute(VALID_CODE_KEY);            
+        Object storedValidCode = request.getSession().getAttribute(VALID_CODE_KEY);
         if (LangUtils.isNotEmpty(validCode) && storedValidCode != null) {            
             if (caseSensitive) {
                 if (validCode.equals(storedValidCode.toString())) {
