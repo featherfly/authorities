@@ -102,6 +102,15 @@ public interface ApplicationLoginManager<E, I extends LoginInfo<A>, A extends Pe
      * @return 指定行动者的登录信息
      */
     I getLoginInfo(A actor);
+    
+    /**
+     * <p>
+     * 获取所有在线登陆信息.
+     * </p>
+     * 
+     * @return 所有在线登录信息
+     */
+    List<I> getLoginInfos();
 
     /**
      * <p>

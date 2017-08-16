@@ -167,6 +167,14 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
     public W getLoginInfo(A actor) {
         return webActorLoginStorage.getLoginInfo(actor);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<W> getLoginInfos() {
+        return webActorLoginStorage.getLoginInfos();
+    }
 
     /**
      * {@inheritDoc}
