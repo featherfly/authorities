@@ -1,3 +1,6 @@
+2017-08-16 0.1.11 发布
+    1.ApplicationLoginManager加入List<I> getLoginInfos()
+    
 2016-12-08 0.1.10 发布
     1.ValidCodeAuthenticator加入忽略大小写设置
     
