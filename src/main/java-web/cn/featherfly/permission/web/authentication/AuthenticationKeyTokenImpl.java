@@ -53,7 +53,6 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
      *
      * @param token token
      * @return 是否是当前token boolean
-     * @throws Exception the exception
      */
     @Override
     public boolean verify(String token) {
