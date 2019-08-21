@@ -1,3 +1,10 @@
+2019-8-21
+0.1.13
+    1.升级依赖
+    2.ValidCodeAuthenticator加入generateValidCodeImage(HttpServletRequest request, HttpServletResponse response)方法
+    3.加入AuthenticationToken一些列接口以及实现
+    4.加入WebApplicationLoginManagerTokenImpl,PermissionInterceptor（未测试，0.2.0发布时测试完成）
+    
 2017-08-16 0.1.12 发布
     1.ApplicationLoginManager加入List<I> getLoginInfos()
     

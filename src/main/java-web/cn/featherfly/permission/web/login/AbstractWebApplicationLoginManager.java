@@ -23,26 +23,18 @@ import cn.featherfly.web.servlet.ServletUtils;
  * WebApplicationLoginManagerImpl
  * </p>
  *
- * @param <W>
- *            登陆信息
- * @param <A>
- *            行动者具体类型
+ * @param <W> 登陆信息
+ * @param <A> 行动者具体类型
  * @author 钟冀
  */
-public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends PermissionActor>
+public abstract class AbstractWebApplicationLoginManager<W extends WebLoginInfo<A>, A extends PermissionActor>
         implements WebApplicationLoginManager<W, A> {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(WebApplicationLoginManagerImpl.class);
-
-    /*
-     * 登录用户存放在环境对象中的KEY
-     */
-    // public static final String LOGIN_USER_KEY = "app.loginUserKey";
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-	 */
-    public WebApplicationLoginManagerImpl() {
+     */
+    public AbstractWebApplicationLoginManager() {
     }
 
     /**
@@ -54,37 +46,39 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     @Override
     public void login(A actor, HttpServletRequest request) {
-        LOGGER.debug("登录: {}", actor.getDescp());
+        logger.debug("登录: {}", actor.getDescp());
         if (LangUtils.isEmpty(authenticators)) {
             throw new PermissionException("@permission#authenticators.null");
         }
         // 判断串session
-        String key = request.getSession().getId();
+        String key = getKey(request);
         W info = webActorLoginStorage.getLoginInfo(key);
         if (info != null && checkCrossSession) {
             if (!info.getActor().getId().equals(actor.getId())) {
-                throw new AuthenticationException(
-                        "@permission#session.with.account");
+                throw new AuthenticationException("@permission#session.with.account");
             }
         }
         // 授权验证
         // authrizate(request, webActorLoginStorage.getLoginActors().size());
-        for (@SuppressWarnings("unchecked") WebAuthenticator<A> authenticator : authenticators) {
+        for (@SuppressWarnings("unchecked")
+        WebAuthenticator<A> authenticator : authenticators) {
             authenticator.authenticate(actor, request);
         }
         if (!isSameOnline() && isLogin(actor)) {
-            LOGGER.debug("{}已经登录，注销之前的登录信息并重新登录", actor.getDescp());
+            logger.debug("{}已经登录，注销之前的登录信息并重新登录", actor.getDescp());
             logout(actor);
         }
         webActorLoginStorage.store(key, actor);
         W webLoginInfo = getLoginInfo(request);
         webLoginInfo.setIp(ServletUtils.getIpAddr(request));
-        LoginEvent<W, A> loginEvent = new LoginEvent<W, A>();
+        LoginEvent<W, A> loginEvent = new LoginEvent<>();
         loginEvent.setLoginInfo(webLoginInfo);
         for (LoginListener<W, A> loginListener : loginListeners) {
             loginListener.onLogin(loginEvent);
         }
     }
+
+    protected abstract String getKey(HttpServletRequest request);
 
     /**
      * {@inheritDoc}
@@ -116,10 +110,10 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
      */
     @Override
     public void logout(HttpSession session) {
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             W webLoginInfo = getLoginInfo(session);
             if (webLoginInfo != null) {
-                LOGGER.debug("注销：{}", webLoginInfo.getActor().getDescp());
+                logger.debug("注销：{}", webLoginInfo.getActor().getDescp());
             }
         }
         webActorLoginStorage.remove(session.getId());
@@ -131,7 +125,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
     @Override
     public void logout(A actor) {
         if (actor != null) {
-            LOGGER.debug("注销：{}", actor.getDescp());
+            logger.debug("注销：{}", actor.getDescp());
             webActorLoginStorage.remove(actor);
         }
     }
@@ -167,7 +161,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
     public W getLoginInfo(A actor) {
         return webActorLoginStorage.getLoginInfo(actor);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -216,7 +210,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     private WebActorLoginStorage<W, A> webActorLoginStorage;
 
-    private List<LoginListener<W, A>> loginListeners = new ArrayList<LoginListener<W, A>>();
+    private List<LoginListener<W, A>> loginListeners = new ArrayList<>();
 
     // private Map<String, WebLoginInfo> webLoginInfos = new HashMap<String,
     // WebLoginInfo>();
@@ -227,7 +221,7 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 返回sameOnline
-     * 
+     *
      * @return sameOnline
      */
     public boolean isSameOnline() {
@@ -236,9 +230,8 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置sameOnline
-     * 
-     * @param sameOnline
-     *            sameOnline
+     *
+     * @param sameOnline sameOnline
      */
     public void setSameOnline(boolean sameOnline) {
         this.sameOnline = sameOnline;
@@ -246,31 +239,28 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置webActorLoginStorage
-     * 
-     * @param webActorLoginStorage
-     *            webActorLoginStorage
+     *
+     * @param webActorLoginStorage webActorLoginStorage
      */
-    public void setWebActorLoginStorage(
-            WebActorLoginStorage<W, A> webActorLoginStorage) {
+    public void setWebActorLoginStorage(WebActorLoginStorage<W, A> webActorLoginStorage) {
         this.webActorLoginStorage = webActorLoginStorage;
     }
 
     /**
      * 设置loginListeners
-     * 
-     * @param loginListeners
-     *            loginListeners
+     *
+     * @param loginListeners loginListeners
      */
     public void setLoginListeners(List<LoginListener<W, A>> loginListeners) {
         this.loginListeners = loginListeners;
     }
 
     @SuppressWarnings("rawtypes")
-    private List<WebAuthenticator> authenticators = new ArrayList<WebAuthenticator>();
+    private List<WebAuthenticator> authenticators = new ArrayList<>();
 
     /**
      * 返回authenticators
-     * 
+     *
      * @return authenticators
      */
     @SuppressWarnings("rawtypes")
@@ -280,18 +270,16 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置authenticators
-     * 
-     * @param authenticators
-     *            authenticators
+     *
+     * @param authenticators authenticators
      */
-    public void setAuthenticators(
-            @SuppressWarnings("rawtypes") List<WebAuthenticator> authenticators) {
+    public void setAuthenticators(@SuppressWarnings("rawtypes") List<WebAuthenticator> authenticators) {
         this.authenticators = authenticators;
     }
 
     /**
      * 返回checkCrossSession
-     * 
+     *
      * @return checkCrossSession
      */
     public boolean isCheckCrossSession() {
@@ -300,9 +288,8 @@ public class WebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends
 
     /**
      * 设置checkCrossSession
-     * 
-     * @param checkCrossSession
-     *            checkCrossSession
+     *
+     * @param checkCrossSession checkCrossSession
      */
     public void setCheckCrossSession(boolean checkCrossSession) {
         this.checkCrossSession = checkCrossSession;
