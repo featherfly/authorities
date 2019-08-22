@@ -3,7 +3,7 @@ package cn.featherfly.permission.core;
 
 /**
  * <p>
- * Role
+ * RoleDefiner
  * </p>
  * <p>
  * 2019-08-22
@@ -11,11 +11,7 @@ package cn.featherfly.permission.core;
  *
  * @author zhongj
  */
-public interface Role {
+public interface RoleDefiner<R extends Role> {
 
-    String getCode();
-
-    String getName();
-
-    String getDescp();
+    R getRole();
 }

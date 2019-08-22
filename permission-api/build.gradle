@@ -1,0 +1,7 @@
+ dependencies {  
+    compile  'cn.featherfly:featherfly-common:1.7.6'
+
+    testCompile (
+        'org.testng:testng:6.8.21'
+    )
+}

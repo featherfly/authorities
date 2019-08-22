@@ -1,0 +1,3 @@
+rootProject.name = 'permission-build'
+includeFlat 'permission-api'
+includeFlat 'permission-web'
