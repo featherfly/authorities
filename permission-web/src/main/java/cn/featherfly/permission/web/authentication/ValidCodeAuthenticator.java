@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.featherfly.common.lang.LangUtils;
 import cn.featherfly.common.validate.VerifyCodeUtils;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.authentication.AuthenticationException;
-import cn.featherfly.permission.core.PermissionActor;
 
 /**
  * <p>

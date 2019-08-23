@@ -1,6 +1,6 @@
 package cn.featherfly.permission.web.login;
 
-import cn.featherfly.permission.core.PermissionActor;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.login.LoginInfo;
 
 /**

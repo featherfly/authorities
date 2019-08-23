@@ -2,7 +2,7 @@ package cn.featherfly.permission.web.login;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.permission.core.PermissionActor;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.web.authentication.AuthenticationToken;
 import cn.featherfly.permission.web.authentication.AuthenticationTokenFactory;
 

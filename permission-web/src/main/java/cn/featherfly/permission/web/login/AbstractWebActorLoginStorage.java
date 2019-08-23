@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.featherfly.permission.core.PermissionActor;
+import cn.featherfly.permission.PermissionActor;
 
 /**
  * <p>

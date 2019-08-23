@@ -3,8 +3,8 @@ package cn.featherfly.permission.web.authentication;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.authentication.AuthenticationException;
-import cn.featherfly.permission.core.PermissionActor;
 
 /**
  * <p>

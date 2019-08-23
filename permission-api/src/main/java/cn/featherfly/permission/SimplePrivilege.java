@@ -1,5 +1,5 @@
 
-package cn.featherfly.permission.core;
+package cn.featherfly.permission;
 
 /**
  * <p>

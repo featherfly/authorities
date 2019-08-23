@@ -1,6 +1,6 @@
 package cn.featherfly.permission.authentication;
 
-import cn.featherfly.permission.core.PermissionActor;
+import cn.featherfly.permission.PermissionActor;
 
 /**
  * <p>

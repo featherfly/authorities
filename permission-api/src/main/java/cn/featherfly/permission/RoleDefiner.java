@@ -1,5 +1,7 @@
 
-package cn.featherfly.permission.core;
+package cn.featherfly.permission;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +15,7 @@ package cn.featherfly.permission.core;
  */
 public interface RoleDefiner<R extends Role> {
 
-    R getRole();
+    boolean support(Class<R> roleType);
+
+    List<R> getRoles();
 }

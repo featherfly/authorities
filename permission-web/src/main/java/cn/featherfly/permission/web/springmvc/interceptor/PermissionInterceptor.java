@@ -1,4 +1,4 @@
-package cn.featherfly.permission.web.login.springmvc.interceptor;
+package cn.featherfly.permission.web.springmvc.interceptor;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cn.featherfly.common.lang.LangUtils;
 import cn.featherfly.common.locale.ResourceBundleUtils;
-import cn.featherfly.permission.core.PermissionActor;
-import cn.featherfly.permission.core.Privilege;
+import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Privilege;
 import cn.featherfly.permission.web.WebPrivilegeFacotry;
+import cn.featherfly.permission.web.login.WebApplicationLoginManager;
 import cn.featherfly.web.servlet.ServletUtils;
 import cn.featherfly.web.spring.servlet.view.Result;
 
@@ -32,7 +34,6 @@ import cn.featherfly.web.spring.servlet.view.Result;
  */
 public class PermissionInterceptor implements HandlerInterceptor {
 
-    private PermissionActor actor;
     /**
      * logger
      */
@@ -42,9 +43,13 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     private String charset = "UTF-8";
 
-    private String redirectURL = "/";
+    private String redirectURL;
+
+    private boolean autoRedirect;
 
     private WebPrivilegeFacotry facotry;
+
+    private WebApplicationLoginManager<?, ?> applicationLoginManager;
 
     private Collection<String> excludes = new HashSet<>();
 
@@ -78,16 +83,31 @@ public class PermissionInterceptor implements HandlerInterceptor {
         }
         if (!exclude) {
             Privilege privilege = facotry.create(request);
-            if (!actor.hasPrivilege(privilege)) {
-                result.setMessage(ResourceBundleUtils.getString("@permission#privilege.not.auth",
-                        new Object[] { privilege.getName() }));
-                if (request.getHeader("Accept").contains("application/json")) {
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    render(response, result);
-                } else {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, result.getMessage());
+            if (privilege != null) {
+                PermissionActor actor = applicationLoginManager.getLoginInfo(request).getActor();
+                if (!actor.hasPrivilege(privilege)) {
+                    String privilegeName = privilege.getName();
+                    if (LangUtils.isEmpty(privilegeName)) {
+                        privilegeName = request.getMethod().toUpperCase() + ":" + uri;
+                    }
+                    result.setMessage(ResourceBundleUtils.getString("@permission#privilege.not.auth",
+                            new Object[] { privilegeName }));
+                    if (request.getHeader("Accept").contains("application/json")) {
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        render(response, result);
+                    } else {
+                        String location = redirectURL;
+                        if (LangUtils.isEmpty(location)) {
+                            location = request.getHeader("Referer");
+                        }
+                        if (autoRedirect && LangUtils.isNotEmpty(location)) {
+                            response.sendRedirect(location);
+                        } else {
+                            response.sendError(HttpServletResponse.SC_FORBIDDEN, result.getMessage());
+                        }
+                    }
+                    return false;
                 }
-                return false;
             }
         }
         return true;
@@ -144,5 +164,69 @@ public class PermissionInterceptor implements HandlerInterceptor {
      */
     public void setFacotry(WebPrivilegeFacotry facotry) {
         this.facotry = facotry;
+    }
+
+    /**
+     * 返回autoRedirect
+     *
+     * @return autoRedirect
+     */
+    public boolean isAutoRedirect() {
+        return autoRedirect;
+    }
+
+    /**
+     * 设置autoRedirect
+     *
+     * @param autoRedirect autoRedirect
+     */
+    public void setAutoRedirect(boolean autoRedirect) {
+        this.autoRedirect = autoRedirect;
+    }
+
+    /**
+     * 返回excludes
+     *
+     * @return excludes
+     */
+    public Collection<String> getExcludes() {
+        return excludes;
+    }
+
+    /**
+     * 设置excludes
+     *
+     * @param excludes excludes
+     */
+    public void setExcludes(Collection<String> excludes) {
+        this.excludes = excludes;
+    }
+
+    /**
+     * 返回charset
+     *
+     * @return charset
+     */
+    public String getCharset() {
+        return charset;
+    }
+
+    /**
+     * 返回facotry
+     *
+     * @return facotry
+     */
+    public WebPrivilegeFacotry getFacotry() {
+        return facotry;
+    }
+
+    /**
+     * Setter for property 'applicationLoginManager'.
+     *
+     * @param applicationLoginManager Value to set for property
+     *                                'applicationLoginManager'.
+     */
+    public void setApplicationLoginManager(WebApplicationLoginManager<?, ?> applicationLoginManager) {
+        this.applicationLoginManager = applicationLoginManager;
     }
 }

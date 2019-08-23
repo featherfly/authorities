@@ -3,7 +3,7 @@ package cn.featherfly.permission.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.permission.core.PrivilegeFacotry;
+import cn.featherfly.permission.PrivilegeFacotry;
 
 /**
  * <p>

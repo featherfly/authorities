@@ -1,5 +1,5 @@
 
-package cn.featherfly.permission.core;
+package cn.featherfly.permission;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ package cn.featherfly.permission.core;
  *
  * @author zhongj
  */
-public interface CostomRole extends Role {
+public interface CustomRole extends Role {
 
 }

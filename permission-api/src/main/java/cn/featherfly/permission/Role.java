@@ -1,5 +1,5 @@
 
-package cn.featherfly.permission.core;
+package cn.featherfly.permission;
 
 import java.util.List;
 
@@ -20,6 +20,8 @@ public interface Role {
     String getName();
 
     String getDescp();
+
+    List<PermissionActor> getActors();
 
     /**
      * <p>

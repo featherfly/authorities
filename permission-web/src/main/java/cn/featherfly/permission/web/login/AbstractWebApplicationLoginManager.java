@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.authentication.AuthenticationException;
-import cn.featherfly.permission.core.PermissionActor;
 import cn.featherfly.permission.exception.PermissionException;
 import cn.featherfly.permission.login.LoginEvent;
 import cn.featherfly.permission.login.LoginListener;

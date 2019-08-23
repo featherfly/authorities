@@ -2,7 +2,7 @@ package cn.featherfly.permission.web.login;
 
 import java.util.List;
 
-import cn.featherfly.permission.core.PermissionActor;
+import cn.featherfly.permission.PermissionActor;
 import cn.featherfly.permission.login.ActorLoginStorage;
 
 /**

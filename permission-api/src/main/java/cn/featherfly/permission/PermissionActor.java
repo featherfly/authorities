@@ -1,4 +1,4 @@
-package cn.featherfly.permission.core;
+package cn.featherfly.permission;
 
 import java.util.List;
 
@@ -10,6 +10,11 @@ import java.util.List;
  * @author 钟冀
  */
 public interface PermissionActor {
+
+    enum ActorType {
+        USER, SYSTEM
+    }
+
     /**
      * <p>
      * 返回字符串表示的唯一标示
@@ -43,6 +48,12 @@ public interface PermissionActor {
      * @return 描述信息
      */
     String getDescp();
+
+    ActorType getType();
+
+    boolean hasRole(Role role);
+
+    List<Role> getRoles();
 
     /**
      * <p>
