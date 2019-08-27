@@ -1,5 +1,5 @@
  dependencies {  
-    compile  'cn.featherfly:featherfly-common:1.7.6'
+    compile  'cn.featherfly:featherfly-common:1.7.8'
 
     testCompile (
         'org.testng:testng:6.8.21'
