@@ -1,4 +1,4 @@
-package cn.featherfly.permission.web.login.springmvc.interceptor;
+package cn.featherfly.permission.web.springmvc.interceptor;
 
 import java.io.IOException;
 import java.util.Collection;

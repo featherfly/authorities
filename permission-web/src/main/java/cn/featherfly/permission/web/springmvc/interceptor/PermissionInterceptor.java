@@ -49,7 +49,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     private WebPrivilegeFacotry facotry;
 
-    private WebApplicationLoginManager<?, ?> applicationLoginManager;
+    @SuppressWarnings("rawtypes")
+    private WebApplicationLoginManager applicationLoginManager;
 
     private Collection<String> excludes = new HashSet<>();
 
@@ -84,6 +85,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
         if (!exclude) {
             Privilege privilege = facotry.create(request);
             if (privilege != null) {
+                @SuppressWarnings("unchecked")
                 PermissionActor actor = applicationLoginManager.getLoginInfo(request).getActor();
                 if (!actor.hasPrivilege(privilege)) {
                     String privilegeName = privilege.getName();
@@ -226,7 +228,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
      * @param applicationLoginManager Value to set for property
      *                                'applicationLoginManager'.
      */
-    public void setApplicationLoginManager(WebApplicationLoginManager<?, ?> applicationLoginManager) {
+    public void setApplicationLoginManager(
+            @SuppressWarnings("rawtypes") WebApplicationLoginManager applicationLoginManager) {
         this.applicationLoginManager = applicationLoginManager;
     }
 }

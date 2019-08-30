@@ -1,4 +1,4 @@
-package cn.featherfly.permission.web.login.springmvc.resolver;
+package cn.featherfly.permission.web.springmvc.resolver;
 
 import javax.servlet.http.HttpServletRequest;
 
