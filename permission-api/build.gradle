@@ -1,6 +1,6 @@
- dependencies {  
-    compile  'cn.featherfly:featherfly-common:1.7.12'
-
+ dependencies {
+    compile  'cn.featherfly.common:common-core:1.7.15'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.29'
     testCompile (
         'org.testng:testng:6.8.21'
     )
