@@ -1,9 +1,9 @@
 
 package cn.featherfly.permission.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -41,20 +41,29 @@ public class RoleDefinerManagerSpringImpl implements RoleDefinerManager, Applica
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public List<RoleDefiner<Role>> getRoleDefiners() {
-        return roleDefinerMap.values().stream().collect(Collectors.toList());
+        List<RoleDefiner<Role>> list = new ArrayList<>();
+        roleDefinerMap.values().forEach(rd -> {
+            list.add(rd);
+        });
+        return list;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     public List<RoleDefiner<BusinessRole>> getBusinessRoleDefiners() {
-        return roleDefinerMap.values().stream().filter(rd -> {
-            return rd.support(BusinessRole.class);
-        }).collect(Collectors.toList());
+        List<RoleDefiner<BusinessRole>> list = new ArrayList<>();
+        roleDefinerMap.values().forEach(rd -> {
+            if (rd.support(BusinessRole.class)) {
+                list.add(rd);
+            }
+        });
+        return list;
     }
 
     /**
@@ -63,9 +72,13 @@ public class RoleDefinerManagerSpringImpl implements RoleDefinerManager, Applica
     @SuppressWarnings("unchecked")
     @Override
     public List<RoleDefiner<CustomRole>> getCustomRoleDefiners() {
-        return roleDefinerMap.values().stream().filter(rd -> {
-            return rd.support(CustomRole.class);
-        }).collect(Collectors.toList());
+        List<RoleDefiner<CustomRole>> list = new ArrayList<>();
+        roleDefinerMap.values().forEach(rd -> {
+            if (rd.support(CustomRole.class)) {
+                list.add(rd);
+            }
+        });
+        return list;
     }
 
 }
