@@ -1,0 +1,3 @@
+rootProject.name = 'authorities-build'
+includeFlat 'authorities-api'
+includeFlat 'authorities-web'
