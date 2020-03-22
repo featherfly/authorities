@@ -7,7 +7,7 @@ package cn.featherfly.permission;
  *
  * @author 钟冀
  */
-public interface Privilege {
+public interface Authority {
     /**
      * <p>
      * 返回许可的唯一标识Code

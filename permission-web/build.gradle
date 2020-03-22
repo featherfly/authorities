@@ -1,8 +1,7 @@
   
 dependencies {
     compile project(":permission-api")
-    compile 'cn.featherfly:featherfly-algorithm:1.1.0'
-    
+        
     compile 'cn.featherfly:featherfly-web-springmvc:0.4.8'
     compile group: 'org.redisson', name: 'redisson', version: '3.11.6'
 

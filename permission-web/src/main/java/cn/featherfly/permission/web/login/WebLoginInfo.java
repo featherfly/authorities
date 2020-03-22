@@ -1,6 +1,6 @@
 package cn.featherfly.permission.web.login;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.login.LoginInfo;
 
 /**
@@ -12,7 +12,7 @@ import cn.featherfly.permission.login.LoginInfo;
  *            行动者具体类型
  * @author 钟冀
  */
-public class WebLoginInfo<A extends PermissionActor> extends LoginInfo<A> {
+public class WebLoginInfo<A extends Actor> extends LoginInfo<A> {
 
     /**
 	 */

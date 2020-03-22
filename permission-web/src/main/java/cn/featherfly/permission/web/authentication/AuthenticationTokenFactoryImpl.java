@@ -9,16 +9,14 @@ import cn.featherfly.common.lang.LangUtils;
  * <p>
  * AuthenticationTokenFactory
  * </p>
- * <p>
- * 2019-08-21
- * </p>
+ * 
  *
  * @author zhongj
  */
 public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactory {
 
     public enum AuthenticationTokens {
-        SimpleAuthenticationToken, AuthenticationKeyTokenImpl, AuthenticationKeyTokenWithRequestParamImpl
+        SimpleAuthenticationToken, AuthenticationKeyToken, AuthenticationKeyTokenWithRequestParam
     }
 
     private AuthenticationTokens type = AuthenticationTokens.SimpleAuthenticationToken;
@@ -55,9 +53,9 @@ public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactor
             signature = request.getParameter("signature");
         }
         switch (type) {
-            case AuthenticationKeyTokenImpl:
+            case AuthenticationKeyToken:
                 return new AuthenticationKeyTokenImpl(signature, ak);
-            case AuthenticationKeyTokenWithRequestParamImpl:
+            case AuthenticationKeyTokenWithRequestParam:
                 return new AuthenticationKeyTokenWithRequestParamImpl(signature, ak);
             default:
                 String token = request.getHeader("token");

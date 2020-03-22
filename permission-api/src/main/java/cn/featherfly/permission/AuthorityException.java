@@ -1,24 +1,24 @@
-package cn.featherfly.permission.authentication;
+package cn.featherfly.permission;
 
 import java.util.Locale;
 
-import cn.featherfly.permission.AuthorityException;
+import cn.featherfly.common.exception.LocalizedException;
 
 /**
  * <p>
- * 认证异常
+ * AuthorityException
  * </p>
  *
  * @author 钟冀
  */
-public class AuthenticationException extends AuthorityException {
+public class AuthorityException extends LocalizedException {
 
-    private static final long serialVersionUID = -2456682960388084764L;
+    private static final long serialVersionUID = 1763928344130473684L;
 
     /**
      * 构造方法
      */
-    public AuthenticationException() {
+    public AuthorityException() {
     }
 
     /**
@@ -29,7 +29,7 @@ public class AuthenticationException extends AuthorityException {
      * @param locale  locale
      * @param ex      异常
      */
-    public AuthenticationException(String message, Object[] argus, Locale locale, Throwable ex) {
+    public AuthorityException(String message, Object[] argus, Locale locale, Throwable ex) {
         super(message, argus, locale, ex);
     }
 
@@ -40,7 +40,7 @@ public class AuthenticationException extends AuthorityException {
      * @param locale  locale
      * @param ex      异常
      */
-    public AuthenticationException(String message, Locale locale, Throwable ex) {
+    public AuthorityException(String message, Locale locale, Throwable ex) {
         super(message, locale, ex);
     }
 
@@ -51,7 +51,7 @@ public class AuthenticationException extends AuthorityException {
      * @param argus   信息绑定参数
      * @param ex      异常
      */
-    public AuthenticationException(String message, Object[] argus, Throwable ex) {
+    public AuthorityException(String message, Object[] argus, Throwable ex) {
         super(message, argus, ex);
     }
 
@@ -61,7 +61,7 @@ public class AuthenticationException extends AuthorityException {
      * @param message 信息
      * @param ex      异常
      */
-    public AuthenticationException(String message, Throwable ex) {
+    public AuthorityException(String message, Throwable ex) {
         super(message, ex);
     }
 
@@ -72,7 +72,7 @@ public class AuthenticationException extends AuthorityException {
      * @param argus   信息绑定参数
      * @param locale  locale
      */
-    public AuthenticationException(String message, Object[] argus, Locale locale) {
+    public AuthorityException(String message, Object[] argus, Locale locale) {
         super(message, argus, locale);
     }
 
@@ -82,7 +82,7 @@ public class AuthenticationException extends AuthorityException {
      * @param message 信息
      * @param argus   信息绑定参数
      */
-    public AuthenticationException(String message, Object[] argus) {
+    public AuthorityException(String message, Object[] argus) {
         super(message, argus);
     }
 
@@ -92,7 +92,7 @@ public class AuthenticationException extends AuthorityException {
      * @param message 信息
      * @param locale  locale
      */
-    public AuthenticationException(String message, Locale locale) {
+    public AuthorityException(String message, Locale locale) {
         super(message, locale);
     }
 
@@ -101,7 +101,7 @@ public class AuthenticationException extends AuthorityException {
      *
      * @param message 信息
      */
-    public AuthenticationException(String message) {
+    public AuthorityException(String message) {
         super(message);
     }
 
@@ -110,7 +110,8 @@ public class AuthenticationException extends AuthorityException {
      *
      * @param ex 异常
      */
-    public AuthenticationException(Throwable ex) {
+    public AuthorityException(Throwable ex) {
         super(ex);
     }
+
 }

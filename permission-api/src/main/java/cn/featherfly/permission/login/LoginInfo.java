@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 
 /**
  * <p>
@@ -18,7 +18,7 @@ import cn.featherfly.permission.PermissionActor;
  *            actor类型
  * @author 钟冀
  */
-public class LoginInfo<A extends PermissionActor> {
+public class LoginInfo<A extends Actor> {
     /**
 	 */
     public LoginInfo() {

@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 
-import cn.featherfly.permission.web.login.WebApplicationLoginManager;
+import cn.featherfly.permission.web.login.WebLoginManager;
 
 /**
  * <p>
@@ -44,7 +44,7 @@ public class WebActorLoginListener implements HttpSessionListener {
                 .getServletContext()
                 .getAttribute(
                         WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-        context.getBean(WebApplicationLoginManager.class).logout(
+        context.getBean(WebLoginManager.class).logout(
                 event.getSession());
         LOGGER.debug("session销毁");
     }

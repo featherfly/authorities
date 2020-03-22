@@ -10,9 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.featherfly.common.lang.LangUtils;
-import cn.featherfly.permission.PermissionActor;
-import cn.featherfly.permission.authentication.AuthenticationException;
-import cn.featherfly.permission.exception.PermissionException;
+import cn.featherfly.permission.Actor;
+import cn.featherfly.permission.AuthorityException;
 import cn.featherfly.permission.login.LoginEvent;
 import cn.featherfly.permission.login.LoginListener;
 import cn.featherfly.permission.web.authentication.WebAuthenticator;
@@ -20,21 +19,21 @@ import cn.featherfly.web.servlet.ServletUtils;
 
 /**
  * <p>
- * WebApplicationLoginManagerImpl
+ * AbstractWebLoginManager
  * </p>
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
  * @author 钟冀
  */
-public abstract class AbstractWebApplicationLoginManager<W extends WebLoginInfo<A>, A extends PermissionActor>
-        implements WebApplicationLoginManager<W, A> {
+public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A extends Actor>
+        implements WebLoginManager<W, A> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      */
-    public AbstractWebApplicationLoginManager() {
+    public AbstractWebLoginManager() {
     }
 
     /**
@@ -48,15 +47,7 @@ public abstract class AbstractWebApplicationLoginManager<W extends WebLoginInfo<
     public void login(A actor, HttpServletRequest request) {
         logger.debug("登录: {}", actor.getDescp());
         if (LangUtils.isEmpty(authenticators)) {
-            throw new PermissionException("@permission#authenticators.null");
-        }
-        // 判断串session
-        String key = getKey(request);
-        W info = webActorLoginStorage.getLoginInfo(key);
-        if (info != null && checkCrossSession) {
-            if (!info.getActor().getId().equals(actor.getId())) {
-                throw new AuthenticationException("@permission#session.with.account");
-            }
+            throw new AuthorityException("#authenticators.null");
         }
         // 授权验证
         // authrizate(request, webActorLoginStorage.getLoginActors().size());
@@ -64,6 +55,18 @@ public abstract class AbstractWebApplicationLoginManager<W extends WebLoginInfo<
         WebAuthenticator<A> authenticator : authenticators) {
             authenticator.authenticate(actor, request);
         }
+        // 判断串session,使用注销前用户的策略
+        String key = getKey(request);
+        W info = webActorLoginStorage.getLoginInfo(key);
+        if (info != null && checkCrossSession) {
+            if (!info.getActor().getId().equals(actor.getId())) {
+                logger.debug("当前会话已经存在登录用户{}，注销登录用户{}并登录当前用户{}", info.getActor().getName(), info.getActor().getName(),
+                        actor.getDescp());
+                logout(info.getActor());
+                //                throw new AuthenticationException("@permission#session.with.account");
+            }
+        }
+        //刷新已经存在的登录信息
         if (!isSameOnline() && isLogin(actor)) {
             logger.debug("{}已经登录，注销之前的登录信息并重新登录", actor.getDescp());
             logout(actor);

@@ -2,7 +2,7 @@ package cn.featherfly.permission.web.login;
 
 import java.util.List;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.login.ActorLoginStorage;
 
 /**
@@ -16,7 +16,7 @@ import cn.featherfly.permission.login.ActorLoginStorage;
  *            行动者具体类型
  * @author 钟冀
  */
-public interface WebActorLoginStorage<W extends WebLoginInfo<A>, A extends PermissionActor>
+public interface WebActorLoginStorage<W extends WebLoginInfo<A>, A extends Actor>
         extends ActorLoginStorage<W, A> {
     /**
      * <p>

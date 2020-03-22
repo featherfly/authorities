@@ -3,7 +3,7 @@ package cn.featherfly.permission.web.login;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.login.LoginManager;
 
 /**
@@ -17,7 +17,7 @@ import cn.featherfly.permission.login.LoginManager;
  *            行动者具体类型
  * @author 钟冀
  */
-public interface WebApplicationLoginManager<W extends WebLoginInfo<A>, A extends PermissionActor>
+public interface WebLoginManager<W extends WebLoginInfo<A>, A extends Actor>
         extends LoginManager<HttpServletRequest, W, A> {
     /**
      * <p>

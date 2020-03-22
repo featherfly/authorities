@@ -3,11 +3,10 @@ package cn.featherfly.permission;
 
 /**
  * <p>
- * BusinessRole
+ * Authorizer
  * </p>
  *
  * @author zhongj
  */
-public interface BusinessRole extends Role {
-
+public interface AuthenticatedChecker<E> extends Checker<E> {
 }

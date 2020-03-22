@@ -20,9 +20,7 @@ import cn.featherfly.permission.authentication.AuthenticationException;
  * <p>
  * AuthenticationKeyToolV2
  * </p>
- * <p>
- * 2019-08-21
- * </p>
+ * 
  *
  * @author zhongj
  */

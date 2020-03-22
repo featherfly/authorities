@@ -9,10 +9,11 @@ import java.util.List;
  *
  * @author 钟冀
  */
-public interface PermissionActor {
+public interface Actor {
 
     enum ActorType {
-        USER, SYSTEM
+        USER,
+        SYSTEM
     }
 
     /**
@@ -60,10 +61,10 @@ public interface PermissionActor {
      * 返回是否拥有指定的权限.
      * </p>
      *
-     * @param privilege 权限
+     * @param authority 权限
      * @return 是否拥有指定的权限
      */
-    boolean hasPrivilege(Privilege privilege);
+    boolean hasAuthority(Authority authority);
 
     /**
      * <p>
@@ -72,7 +73,7 @@ public interface PermissionActor {
      *
      * @return 行动者拥有的许可
      */
-    List<Privilege> getOwnPrivileges();
+    List<Authority> getOwnAuthoritys();
 
     /**
      * <p>
@@ -81,7 +82,7 @@ public interface PermissionActor {
      *
      * @return 行动者可以看到的许可
      */
-    List<Privilege> getReadblePrivileges();
+    List<Authority> getReadbleAuthoritys();
 
     /**
      * <p>
@@ -90,7 +91,7 @@ public interface PermissionActor {
      *
      * @return 行动者可以对其他人授权的权限
      */
-    List<Privilege> getAuthorizablePrivileges();
+    List<Authority> getAuthorizableAuthoritys();
     // /**
     // * <p>
     // * 返回指定键对应的对象

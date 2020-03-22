@@ -2,7 +2,7 @@ package cn.featherfly.permission.web.authentication;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.authentication.Authenticator;
 
 /**
@@ -14,7 +14,7 @@ import cn.featherfly.permission.authentication.Authenticator;
  *            泛型，用于具体行动者的定义
  * @author 钟冀
  */
-public interface WebAuthenticator<A extends PermissionActor> extends
+public interface WebAuthenticator<A extends Actor> extends
         Authenticator<A, HttpServletRequest> {
 
     /**

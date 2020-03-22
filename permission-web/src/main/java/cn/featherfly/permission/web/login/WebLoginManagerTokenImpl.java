@@ -2,27 +2,27 @@ package cn.featherfly.permission.web.login;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.web.authentication.AuthenticationToken;
 import cn.featherfly.permission.web.authentication.AuthenticationTokenFactory;
 
 /**
  * <p>
- * WebApplicationLoginManagerTokenImpl, support distribution
+ * WebLoginManagerTokenImpl, support distribution
  * </p>
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
  * @author 钟冀
  */
-public class WebApplicationLoginManagerTokenImpl<W extends WebLoginInfo<A>, A extends PermissionActor>
-        extends AbstractWebApplicationLoginManager<W, A> {
+public class WebLoginManagerTokenImpl<W extends WebLoginInfo<A>, A extends Actor>
+        extends AbstractWebLoginManager<W, A> {
 
     private AuthenticationTokenFactory factory;
 
     /**
      */
-    public WebApplicationLoginManagerTokenImpl() {
+    public WebLoginManagerTokenImpl() {
     }
 
     /**

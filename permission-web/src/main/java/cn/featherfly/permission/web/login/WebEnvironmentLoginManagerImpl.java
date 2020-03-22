@@ -4,31 +4,29 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.permission.PermissionActor;
-import cn.featherfly.permission.login.DesignatedEnvironmentLoginManager;
+import cn.featherfly.permission.Actor;
 import cn.featherfly.permission.login.LoginListener;
 
 /**
  * <p>
- * WebApplicationLoginManagerImpl
+ * WebEnvironmentLoginManagerImpl
  * </p>
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
  * @author 钟冀
  */
-public class DesignatedEnvironmentWebApplicationLoginManagerImpl<W extends WebLoginInfo<A>, A extends PermissionActor>
-        implements DesignatedEnvironmentLoginManager<W, A> {
+public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends Actor>
+        implements WebEnvironmentLoginManager<W, A> {
 
-    private WebApplicationLoginManagerSessionImpl<W, A> loginManger;
+    private WebLoginManager<W, A> loginManger;
 
     private HttpServletRequest request;
 
     /**
      * @param loginManger
      */
-    public DesignatedEnvironmentWebApplicationLoginManagerImpl(WebApplicationLoginManagerSessionImpl<W, A> loginManger,
-            HttpServletRequest request) {
+    public WebEnvironmentLoginManagerImpl(WebLoginManager<W, A> loginManger, HttpServletRequest request) {
         super();
         this.loginManger = loginManger;
     }

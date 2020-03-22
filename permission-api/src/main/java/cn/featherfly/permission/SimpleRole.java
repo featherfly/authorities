@@ -9,10 +9,7 @@ import java.util.Map;
 
 /**
  * <p>
- * SimplePrivilege
- * </p>
- * <p>
- * 2019-08-21
+ * SimpleRole
  * </p>
  *
  * @author zhongj
@@ -25,13 +22,13 @@ public class SimpleRole implements Role {
 
     private String descp;
 
-    private Map<String, Privilege> ownPrivilegeMap = new HashMap<>();
+    private Map<String, Authority> ownAuthorityMap = new HashMap<>();
 
-    private Map<String, Privilege> readablePrivilegeMap = new HashMap<>();
+    private Map<String, Authority> readableAuthorityMap = new HashMap<>();
 
-    private Map<String, Privilege> authorizablePrivilegeMap = new HashMap<>();
+    private Map<String, Authority> authorizableAuthorityMap = new HashMap<>();
 
-    private Map<String, PermissionActor> actorMap = new HashMap<>();
+    private Map<String, Actor> actorMap = new HashMap<>();
 
     /**
      * 返回code
@@ -94,60 +91,33 @@ public class SimpleRole implements Role {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasPrivilege(Privilege privilege) {
-        return ownPrivilegeMap.containsKey(privilege.getCode());
+    public boolean hasAuthority(Authority authority) {
+        return ownAuthorityMap.containsKey(authority.getCode());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Privilege> getOwnPrivileges() {
-        return new ArrayList<>(ownPrivilegeMap.values());
+    public List<Authority> getOwnAuthoritys() {
+        return new ArrayList<>(ownAuthorityMap.values());
     }
 
-    public SimpleRole addOwnPrivilege(Privilege privilege) {
-        ownPrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addOwnAuthority(Authority authority) {
+        ownAuthorityMap.put(authority.getCode(), authority);
         return this;
     }
 
-    public SimpleRole addOwnPrivilege(Privilege... privileges) {
-        for (Privilege privilege : privileges) {
-            ownPrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addOwnAuthority(Authority... authoritys) {
+        for (Authority authority : authoritys) {
+            ownAuthorityMap.put(authority.getCode(), authority);
         }
         return this;
     }
 
-    public SimpleRole addOwnPrivilege(Collection<Privilege> privileges) {
-        for (Privilege privilege : privileges) {
-            ownPrivilegeMap.put(privilege.getCode(), privilege);
-        }
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Privilege> getReadblePrivileges() {
-        return new ArrayList<>(readablePrivilegeMap.values());
-    }
-
-    public SimpleRole addReadblePrivilege(Privilege privilege) {
-        readablePrivilegeMap.put(privilege.getCode(), privilege);
-        return this;
-    }
-
-    public SimpleRole addReadblePrivilege(Privilege... privileges) {
-        for (Privilege privilege : privileges) {
-            readablePrivilegeMap.put(privilege.getCode(), privilege);
-        }
-        return this;
-    }
-
-    public SimpleRole addReadblePrivilege(Collection<Privilege> privileges) {
-        for (Privilege privilege : privileges) {
-            readablePrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addOwnAuthority(Collection<Authority> authoritys) {
+        for (Authority authority : authoritys) {
+            ownAuthorityMap.put(authority.getCode(), authority);
         }
         return this;
     }
@@ -156,25 +126,25 @@ public class SimpleRole implements Role {
      * {@inheritDoc}
      */
     @Override
-    public List<Privilege> getAuthorizablePrivileges() {
-        return new ArrayList<>(authorizablePrivilegeMap.values());
+    public List<Authority> getReadbleAuthoritys() {
+        return new ArrayList<>(readableAuthorityMap.values());
     }
 
-    public SimpleRole addAuthorizablePrivilege(Privilege privilege) {
-        authorizablePrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addReadbleAuthority(Authority authority) {
+        readableAuthorityMap.put(authority.getCode(), authority);
         return this;
     }
 
-    public SimpleRole addAuthorizablePrivilege(Privilege... privileges) {
-        for (Privilege privilege : privileges) {
-            authorizablePrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addReadbleAuthority(Authority... authoritys) {
+        for (Authority authority : authoritys) {
+            readableAuthorityMap.put(authority.getCode(), authority);
         }
         return this;
     }
 
-    public SimpleRole addAuthorizablePrivilege(Collection<Privilege> privileges) {
-        for (Privilege privilege : privileges) {
-            authorizablePrivilegeMap.put(privilege.getCode(), privilege);
+    public SimpleRole addReadbleAuthority(Collection<Authority> authoritys) {
+        for (Authority authority : authoritys) {
+            readableAuthorityMap.put(authority.getCode(), authority);
         }
         return this;
     }
@@ -183,24 +153,51 @@ public class SimpleRole implements Role {
      * {@inheritDoc}
      */
     @Override
-    public List<PermissionActor> getActors() {
+    public List<Authority> getAuthorizableAuthoritys() {
+        return new ArrayList<>(authorizableAuthorityMap.values());
+    }
+
+    public SimpleRole addAuthorizableAuthority(Authority authority) {
+        authorizableAuthorityMap.put(authority.getCode(), authority);
+        return this;
+    }
+
+    public SimpleRole addAuthorizableAuthority(Authority... authoritys) {
+        for (Authority authority : authoritys) {
+            authorizableAuthorityMap.put(authority.getCode(), authority);
+        }
+        return this;
+    }
+
+    public SimpleRole addAuthorizableAuthority(Collection<Authority> authoritys) {
+        for (Authority authority : authoritys) {
+            authorizableAuthorityMap.put(authority.getCode(), authority);
+        }
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Actor> getActors() {
         return new ArrayList<>(actorMap.values());
     }
 
-    public SimpleRole addActor(PermissionActor actor) {
+    public SimpleRole addActor(Actor actor) {
         actorMap.put(actor.getId(), actor);
         return this;
     }
 
-    public SimpleRole addActor(PermissionActor... actors) {
-        for (PermissionActor actor : actors) {
+    public SimpleRole addActor(Actor... actors) {
+        for (Actor actor : actors) {
             actorMap.put(actor.getId(), actor);
         }
         return this;
     }
 
-    public SimpleRole addActor(Collection<PermissionActor> actors) {
-        for (PermissionActor actor : actors) {
+    public SimpleRole addActor(Collection<Actor> actors) {
+        for (Actor actor : actors) {
             actorMap.put(actor.getId(), actor);
         }
         return this;

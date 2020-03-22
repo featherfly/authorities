@@ -3,7 +3,7 @@ package cn.featherfly.permission.login;
 import java.util.List;
 
 import cn.featherfly.permission.Application;
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import cn.featherfly.permission.PermissionActor;
  * @author 钟冀
  */
 public interface ApplicationManager<E, L extends LoginManager<E, I, A>, I extends LoginInfo<A>,
-        A extends PermissionActor> {
+        A extends Actor> {
     /**
      * getLoginManager
      *

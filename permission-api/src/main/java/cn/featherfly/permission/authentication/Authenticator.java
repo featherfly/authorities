@@ -1,6 +1,6 @@
 package cn.featherfly.permission.authentication;
 
-import cn.featherfly.permission.PermissionActor;
+import cn.featherfly.permission.Actor;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import cn.featherfly.permission.PermissionActor;
  *            泛型，用于具体依赖环境的定义
  * @author 钟冀
  */
-public interface Authenticator<A extends PermissionActor, E> {
+public interface Authenticator<A extends Actor, E> {
     /**
      * <p>
      * 认证. 认证失败抛出AuthenticationException异常

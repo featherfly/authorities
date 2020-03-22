@@ -5,9 +5,7 @@ package cn.featherfly.permission.web.authentication;
  * <p>
  * AuthenticationKey
  * </p>
- * <p>
- * 2019-08-21
- * </p>
+ * 
  *
  * @author zhongj
  */

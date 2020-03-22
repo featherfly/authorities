@@ -6,9 +6,7 @@ import cn.featherfly.common.lang.LangUtils;
  * <p>
  * SimpleAuthenticationToken
  * </p>
- * <p>
- * 2019-08-21
- * </p>
+ * 
  *
  * @author zhongj
  */

@@ -3,15 +3,12 @@ package cn.featherfly.permission;
 
 /**
  * <p>
- * SimplePrivilege
- * </p>
- * <p>
- * 2019-08-21
+ * SimpleAuthority
  * </p>
  *
  * @author zhongj
  */
-public class SimplePrivilege implements Privilege {
+public class SimpleAuthority implements Authority {
 
     private String code;
 
