@@ -1,9 +1,8 @@
+package cn.featherfly.authorities.web.springmvc;
 
-package cn.featherfly.authorities.web;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -44,11 +43,7 @@ public class RoleDefinerManagerSpringImpl implements RoleDefinerManager, Applica
     @SuppressWarnings("unchecked")
     @Override
     public List<RoleDefiner<Role>> getRoleDefiners() {
-        List<RoleDefiner<Role>> list = new ArrayList<>();
-        roleDefinerMap.values().forEach(rd -> {
-            list.add(rd);
-        });
-        return list;
+        return roleDefinerMap.values().stream().map(r -> (RoleDefiner<Role>) r).collect(Collectors.toList());
     }
 
     /**
@@ -57,13 +52,8 @@ public class RoleDefinerManagerSpringImpl implements RoleDefinerManager, Applica
     @SuppressWarnings("unchecked")
     @Override
     public List<RoleDefiner<BusinessRole>> getBusinessRoleDefiners() {
-        List<RoleDefiner<BusinessRole>> list = new ArrayList<>();
-        roleDefinerMap.values().forEach(rd -> {
-            if (rd.support(BusinessRole.class)) {
-                list.add(rd);
-            }
-        });
-        return list;
+        return roleDefinerMap.values().stream().filter(r -> r.support(BusinessRole.class))
+                .map(r -> (RoleDefiner<BusinessRole>) r).collect(Collectors.toList());
     }
 
     /**
@@ -72,13 +62,8 @@ public class RoleDefinerManagerSpringImpl implements RoleDefinerManager, Applica
     @SuppressWarnings("unchecked")
     @Override
     public List<RoleDefiner<CustomRole>> getCustomRoleDefiners() {
-        List<RoleDefiner<CustomRole>> list = new ArrayList<>();
-        roleDefinerMap.values().forEach(rd -> {
-            if (rd.support(CustomRole.class)) {
-                list.add(rd);
-            }
-        });
-        return list;
+        return roleDefinerMap.values().stream().filter(r -> r.support(CustomRole.class))
+                .map(r -> (RoleDefiner<CustomRole>) r).collect(Collectors.toList());
     }
 
 }

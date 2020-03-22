@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * <p>
- * RoleDefiner
+ * RoleDefinerManager
  * </p>
  *
  * @author zhongj
