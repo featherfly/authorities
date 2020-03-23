@@ -10,7 +10,10 @@ import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.authentication.AuthenticationException;
 import cn.featherfly.common.lang.LangUtils;
 import cn.featherfly.common.locale.ResourceBundleUtils;
-import cn.featherfly.common.validate.VerifyCodeUtils;
+import cn.featherfly.common.validate.SimpleValidateCodeGenerator;
+import cn.featherfly.common.validate.ValidateCode;
+import cn.featherfly.common.validate.ValidateCodeGenerator;
+import cn.featherfly.common.validate.ValidateCodeUtils;
 
 /**
  * <p>
@@ -31,21 +34,22 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      */
     @Override
     public void authenticate(A actor, HttpServletRequest request) {
-        String validCode = request.getParameter(validateCodeKey);
-        if (LangUtils.isEmpty(validCode)) {
+        // TODO 加入动态配置，可以运行期打开关闭验证逻辑
+        String clientValidateCode = request.getParameter(validateCodeKey);
+        if (LangUtils.isEmpty(clientValidateCode)) {
             Object valid = request.getAttribute(validateCodeKey);
             if (valid != null) {
-                validCode = valid.toString();
+                clientValidateCode = valid.toString();
             }
         }
-        Object storedValidCode = request.getSession().getAttribute(validateCodeKey);
-        if (LangUtils.isNotEmpty(validCode) && storedValidCode != null) {
+        ValidateCode validateCode = getGeneratedValidCode(request);
+        if (LangUtils.isNotEmpty(clientValidateCode) && validateCode != null) {
             if (caseSensitive) {
-                if (validCode.equals(storedValidCode.toString())) {
+                if (clientValidateCode.equals(validateCode.getValid())) {
                     return;
                 }
             } else {
-                if (validCode.equalsIgnoreCase(storedValidCode.toString())) {
+                if (clientValidateCode.equalsIgnoreCase(validateCode.toString())) {
                     return;
                 }
             }
@@ -63,8 +67,27 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      * @param request   request
      * @param validCode code
      */
-    public void setVerifyValidCode(HttpServletRequest request, String validCode) {
+    public void setClientValidateCode(HttpServletRequest request, String validCode) {
         request.setAttribute(validateCodeKey, validCode);
+    }
+
+    /**
+     * <p>
+     * 获取需要验证的code，用于在authenticate方法中使用
+     * </p>
+     *
+     * @param request request
+     * @return
+     */
+    public String getClientValidateCode(HttpServletRequest request) {
+        String clientValidateCode = request.getParameter(validateCodeKey);
+        if (LangUtils.isEmpty(clientValidateCode)) {
+            Object valid = request.getAttribute(validateCodeKey);
+            if (valid != null) {
+                clientValidateCode = valid.toString();
+            }
+        }
+        return clientValidateCode;
     }
 
     /**
@@ -75,8 +98,18 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      * @param request   request
      * @param validCode code
      */
-    public void setGeneratedValidCode(HttpServletRequest request, String validCode) {
+    public void setGeneratedValidCode(HttpServletRequest request, ValidateCode validCode) {
         request.getSession().setAttribute(validateCodeKey, validCode);
+    }
+
+    /**
+     * getGeneratedValidCode
+     * 
+     * @param request
+     * @return
+     */
+    public ValidateCode getGeneratedValidCode(HttpServletRequest request) {
+        return (ValidateCode) request.getSession().getAttribute(validateCodeKey);
     }
 
     /**
@@ -93,12 +126,11 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
         response.setContentType("image/jpeg");
 
         //生成随机字串
-        String verifyCode = VerifyCodeUtils.generateVerifyCode(validCodeSize);
+        ValidateCode validateCode = validateCodeGenerator.generate();
         //设置
-        setGeneratedValidCode(request, verifyCode);
+        setGeneratedValidCode(request, validateCode);
         //生成图片
-        int w = 200, h = 80;
-        VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
+        ValidateCodeUtils.outputImage(imageWith, imageHight, response.getOutputStream(), validateCode.getShow());
     }
 
     /**
@@ -108,25 +140,11 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
 
     private boolean caseSensitive;
 
-    private int validCodeSize = 4;
+    private int imageHight = 80;
 
-    /**
-     * 返回validCodeSize
-     *
-     * @return validCodeSize
-     */
-    public int getValidCodeSize() {
-        return validCodeSize;
-    }
+    private int imageWith = 200;
 
-    /**
-     * 设置validCodeSize
-     *
-     * @param validCodeSize validCodeSize
-     */
-    public void setValidCodeSize(int validCodeSize) {
-        this.validCodeSize = validCodeSize;
-    }
+    private ValidateCodeGenerator validateCodeGenerator = new SimpleValidateCodeGenerator();
 
     /**
      * 返回caseSensitive
@@ -164,4 +182,57 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
         this.validateCodeKey = validateCodeKey;
     }
 
+    /**
+     * 返回validateCodeGenerator
+     *
+     * @return validateCodeGenerator
+     */
+    public ValidateCodeGenerator getValidateCodeGenerator() {
+        return validateCodeGenerator;
+    }
+
+    /**
+     * 设置validateCodeGenerator
+     *
+     * @param validateCodeGenerator validateCodeGenerator
+     */
+    public void setValidateCodeGenerator(ValidateCodeGenerator validateCodeGenerator) {
+        this.validateCodeGenerator = validateCodeGenerator;
+    }
+
+    /**
+     * 返回imageHight
+     *
+     * @return imageHight
+     */
+    public int getImageHight() {
+        return imageHight;
+    }
+
+    /**
+     * 设置imageHight
+     *
+     * @param imageHight imageHight
+     */
+    public void setImageHight(int imageHight) {
+        this.imageHight = imageHight;
+    }
+
+    /**
+     * 返回imageWith
+     *
+     * @return imageWith
+     */
+    public int getImageWith() {
+        return imageWith;
+    }
+
+    /**
+     * 设置imageWith
+     *
+     * @param imageWith imageWith
+     */
+    public void setImageWith(int imageWith) {
+        this.imageWith = imageWith;
+    }
 }

@@ -1,6 +1,7 @@
 package cn.featherfly.authorities.web.authentication;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import cn.featherfly.authorities.authentication.AuthenticationException;
 import cn.featherfly.common.algorithm.Base64;
 import cn.featherfly.common.algorithm.MD5;
 import cn.featherfly.common.algorithm.SHA;
-import cn.featherfly.common.constant.Charset;
 import cn.featherfly.common.lang.AssertIllegalArgument;
 import cn.featherfly.common.lang.LangUtils;
 
@@ -20,13 +20,12 @@ import cn.featherfly.common.lang.LangUtils;
  * <p>
  * AuthenticationKeyToolV2
  * </p>
- * 
  *
  * @author zhongj
  */
 public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenticationKeyToken {
 
-    private String requestEncoding = Charset.UTF_8;
+    private java.nio.charset.Charset requestEncoding = StandardCharsets.UTF_8;
 
     /**
      * @param signature
@@ -43,7 +42,8 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
      * @param timestamp
      * @param requestDescp
      */
-    public AuthenticationKeyTokenWithRequestParamImpl(String token, String identity, Long timestamp, String requestDescp) {
+    public AuthenticationKeyTokenWithRequestParamImpl(String token, String identity, Long timestamp,
+            String requestDescp) {
         setSignature(token, timestamp, requestDescp);
         setAuthenticationKey(identity, timestamp, requestDescp);
     }
@@ -150,7 +150,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     private String getRequestBody(HttpServletRequest servletRequest) {
-        String charset = servletRequest.getCharacterEncoding() == null ? Charset.UTF_8
+        String charset = servletRequest.getCharacterEncoding() == null ? StandardCharsets.UTF_8.displayName()
                 : servletRequest.getCharacterEncoding();
         try {
             return IOUtils.toString(servletRequest.getInputStream(), charset);
@@ -205,7 +205,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
      *
      * @return requestEncoding
      */
-    public String getRequestEncoding() {
+    public java.nio.charset.Charset getRequestEncoding() {
         return requestEncoding;
     }
 
@@ -214,7 +214,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
      *
      * @param requestEncoding requestEncoding
      */
-    public void setRequestEncoding(String requestEncoding) {
+    public void setRequestEncoding(java.nio.charset.Charset requestEncoding) {
         this.requestEncoding = requestEncoding;
     }
 }
