@@ -27,6 +27,9 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
     /**
      */
     public ValidateCodeAuthenticator() {
+        SimpleValidateCodeGenerator g = new SimpleValidateCodeGenerator();
+        g.setSize(4);
+        this.validateCodeGenerator = g;
     }
 
     /**
@@ -49,7 +52,7 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
                     return;
                 }
             } else {
-                if (clientValidateCode.equalsIgnoreCase(validateCode.toString())) {
+                if (clientValidateCode.equalsIgnoreCase(validateCode.getValid().toString())) {
                     return;
                 }
             }
@@ -104,7 +107,7 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
 
     /**
      * getGeneratedValidCode
-     * 
+     *
      * @param request
      * @return
      */
@@ -144,7 +147,7 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
 
     private int imageWith = 200;
 
-    private ValidateCodeGenerator validateCodeGenerator = new SimpleValidateCodeGenerator();
+    private ValidateCodeGenerator validateCodeGenerator;
 
     /**
      * 返回caseSensitive

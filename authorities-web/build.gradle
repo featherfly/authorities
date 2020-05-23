@@ -1,8 +1,8 @@
   
 dependencies {
     compile project(":authorities-api")
-        
-    compile 'cn.featherfly:featherfly-web-springmvc:0.4.8'
+    
+    compile 'cn.featherfly:featherfly-web-springmvc:0.4.10'
     compile group: 'org.redisson', name: 'redisson', version: '3.11.6'
 
 }

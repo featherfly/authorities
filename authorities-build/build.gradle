@@ -6,7 +6,9 @@ allprojects {
     targetCompatibility = 1.8 
 
     dependencies {
-        testCompile (
+        api 'cn.featherfly.common:common-core:1.8.4'
+        api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+        testImplementation (
             'org.testng:testng:6.14.3',
             'org.slf4j:slf4j-log4j12:1.7.30'
         )
@@ -14,8 +16,5 @@ allprojects {
 }
   
 dependencies {  
-    compile 'cn.featherfly:featherfly-common:1.8.0'
-    compile 'cn.featherfly:featherfly-web-springmvc:0.4.5'
-    compile group: 'org.redisson', name: 'redisson', version: '3.11.2'
-
+    
 }

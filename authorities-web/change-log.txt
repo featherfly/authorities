@@ -1,7 +1,9 @@
-2020-
+2020-05-22
 0.3.0
-    1.新增Checker,AuthorityChecker,AuthenticatedChecker
-    2.新增LoginManagerHandlerMethodArgumentResolver,LoginActorHandlerMethodArgumentResolver
+    1.模块改名
+    2.新增Checker,AuthorityChecker,AuthenticatedChecker
+    3.新增LoginManagerHandlerMethodArgumentResolver,LoginActorHandlerMethodArgumentResolver
+    4.兼容性依赖升级
 
 2019-12-03
 0.2.0

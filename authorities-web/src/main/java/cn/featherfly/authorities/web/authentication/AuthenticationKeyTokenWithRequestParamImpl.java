@@ -107,7 +107,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     private String[] decodeAuthenticationKey(String authenticationKey) {
         String akv;
         try {
-            akv = Base64.decodeToString(authenticationKey);
+            akv = Base64.encryptToString(authenticationKey);
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }
@@ -173,9 +173,9 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
             boolean isOriginalRequestDescp) {
         try {
             if (isOriginalRequestDescp) {
-                requestDescp = MD5.encode(requestDescp);
+                requestDescp = MD5.encrypt(requestDescp);
             }
-            return SHA.encode(token + timestamp + MD5.encode(timestamp + requestDescp));
+            return SHA.encrypt(token + timestamp + MD5.encrypt(timestamp + requestDescp));
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }
@@ -194,7 +194,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
 
     private String generateAuthenticationKey(String identity, Long timestamp, String requestDescp) {
         try {
-            return Base64.encodeToString(identity + akSplitSign + timestamp + akSplitSign + MD5.encode(requestDescp));
+            return Base64.encryptToString(identity + akSplitSign + timestamp + akSplitSign + MD5.encrypt(requestDescp));
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }

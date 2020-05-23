@@ -9,7 +9,6 @@ import cn.featherfly.common.lang.AssertIllegalArgument;
  * <p>
  * AuthenticationKeyTokenV1
  * </p>
- * 
  *
  * @author zhongj
  */
@@ -58,7 +57,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
         AssertIllegalArgument.isNotEmpty(authenticationKey, "authenticationKey");
         String[] akvs = decodeAuthenticationKey(authenticationKey);
         try {
-            return SHA.encode(token + akvs[1]).equals(signature);
+            return SHA.encrypt(token + akvs[1]).equals(signature);
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }
@@ -72,7 +71,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
      */
     public void setSignature(String token, Long timestamp) {
         try {
-            setSignature(SHA.encode(token + timestamp));
+            setSignature(SHA.encrypt(token + timestamp));
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }
@@ -86,7 +85,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
      */
     public void setAuthenticationKey(String identity, Long timestamp) {
         try {
-            this.setAuthenticationKey(Base64.encodeToString(identity + akSplitSign + timestamp));
+            this.setAuthenticationKey(Base64.encryptToString(identity + akSplitSign + timestamp));
             this.identity = identity;
         } catch (Exception e) {
             throw new AuthenticationException(e);
@@ -95,7 +94,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
 
     private String[] decodeAuthenticationKey(String authenticationKey) {
         try {
-            return Base64.decodeToString(authenticationKey).split(akSplitSign);
+            return Base64.encryptToString(authenticationKey).split(akSplitSign);
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }
