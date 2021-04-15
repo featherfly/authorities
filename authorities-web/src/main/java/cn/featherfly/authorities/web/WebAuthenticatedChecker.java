@@ -42,16 +42,15 @@ public class WebAuthenticatedChecker extends AbstractChecker implements Authenti
         if (!loginManager.isLogin(request)) {
             try {
                 result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "session.invalidation"));
-                request.getSession().invalidate();
             } catch (Exception e) {
-                LogUtils.debug(e, logger);
+                LogUtils.error(e, logger);
             }
             authenticated = false;
         } else if (!loginManager.getLoginInfo(request).getActor().isAvailable()) {
             try {
                 result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "user.available"));
             } catch (Exception e) {
-                LogUtils.debug(e, logger);
+                LogUtils.error(e, logger);
             }
             authenticated = false;
         }

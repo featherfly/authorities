@@ -28,6 +28,8 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     private java.nio.charset.Charset requestEncoding = StandardCharsets.UTF_8;
 
     /**
+     * this construct is for decode
+     *
      * @param signature
      * @param authenticationKey
      */
@@ -37,6 +39,8 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
+     * this construct is for encode
+     *
      * @param token
      * @param identity
      * @param timestamp
