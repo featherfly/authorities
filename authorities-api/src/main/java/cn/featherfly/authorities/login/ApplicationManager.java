@@ -9,32 +9,36 @@ import cn.featherfly.authorities.Application;
  * <p>
  * 应用程序管理器
  * </p>
+ * .
  *
- * @param <E> 泛型，用于具体依赖运行环境的定义
  * @author 钟冀
+ * @param <E> 泛型，用于具体依赖运行环境的定义
+ * @param <L> the generic type
+ * @param <I> the generic type
+ * @param <A> the generic type
  */
-public interface ApplicationManager<E, L extends LoginManager<E, I, A>, I extends LoginInfo<A>,
-        A extends Actor> {
+public interface ApplicationManager<E, L extends LoginManager<E, I, A>, I extends LoginInfo<A>, A extends Actor> {
+
     /**
-     * getLoginManager
+     * getLoginManager.
      *
-     * @param environment
-     * @return
+     * @param environment the environment
+     * @return the login manager
      */
     L getLoginManager(E environment);
 
     /**
-     * getLoginManager
+     * getLoginManager.
      *
-     * @param application
-     * @return
+     * @param application the application
+     * @return the login manager
      */
     L getLoginManager(Application application);
 
     /**
-     * getApplications
+     * getApplications.
      *
-     * @return
+     * @return the applications
      */
     List<Application> getApplications();
 }

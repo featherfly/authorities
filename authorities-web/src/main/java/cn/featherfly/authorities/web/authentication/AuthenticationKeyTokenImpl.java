@@ -94,7 +94,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
 
     private String[] decodeAuthenticationKey(String authenticationKey) {
         try {
-            return Base64.encryptToString(authenticationKey).split(akSplitSign);
+            return Base64.decryptToString(authenticationKey).split(akSplitSign);
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }

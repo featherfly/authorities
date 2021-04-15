@@ -107,7 +107,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     private String[] decodeAuthenticationKey(String authenticationKey) {
         String akv;
         try {
-            akv = Base64.encryptToString(authenticationKey);
+            akv = Base64.decryptToString(authenticationKey);
         } catch (Exception e) {
             throw new AuthenticationException(e);
         }

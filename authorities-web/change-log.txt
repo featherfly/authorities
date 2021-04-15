@@ -1,3 +1,7 @@
+2021-04-14
+0.3.1
+    1.修复AuthenticationKeyTokenWithRequestParamImpl, AuthenticationKeyTokenImpl解码错误
+    
 2020-05-22
 0.3.0
     1.模块改名
