@@ -14,7 +14,7 @@ import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.login.LoginEvent;
 import cn.featherfly.authorities.login.LoginListener;
 import cn.featherfly.authorities.web.authentication.WebAuthenticator;
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 import cn.featherfly.web.servlet.ServletUtils;
 
 /**
@@ -46,7 +46,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     @Override
     public void login(A actor, HttpServletRequest request) {
         logger.debug("登录: {}", actor.getDescp());
-        if (LangUtils.isEmpty(authenticators)) {
+        if (Lang.isEmpty(authenticators)) {
             throw new AuthorityException("#authenticators.null");
         }
         // 授权验证

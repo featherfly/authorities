@@ -2,7 +2,7 @@ package cn.featherfly.authorities.web.servlet.filter;
 //
 //package cn.featherfly.permission.web.servlet.filter;
 //
-//import static cn.featherfly.common.lang.LangUtils.isNotEmpty;
+//import static cn.featherfly.common.lang.Lang.isNotEmpty;
 //
 //import java.io.IOException;
 //

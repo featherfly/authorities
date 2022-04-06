@@ -14,7 +14,7 @@ import cn.featherfly.authorities.Authority;
 import cn.featherfly.authorities.AuthorityChecker;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.web.login.WebLoginManager;
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 import cn.featherfly.common.locale.ResourceBundleUtils;
 import cn.featherfly.web.spring.servlet.view.Result;
 
@@ -52,7 +52,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
             Actor actor = loginManager.getLoginInfo(request).getActor();
             if (!actor.hasAuthority(authority)) {
                 String authorityName = authority.getName();
-                if (LangUtils.isEmpty(authorityName)) {
+                if (Lang.isEmpty(authorityName)) {
                     authorityName = request.getMethod().toUpperCase() + ":" + uri;
                 }
                 result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "authority.not.auth",
@@ -62,11 +62,11 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
                     render(response, result);
                 } else {
                     String location = redirectURL;
-                    if (LangUtils.isEmpty(location)) {
+                    if (Lang.isEmpty(location)) {
                         location = request.getHeader("Referer");
                     }
                     try {
-                        if (autoRedirect && LangUtils.isNotEmpty(location)) {
+                        if (autoRedirect && Lang.isNotEmpty(location)) {
                             response.sendRedirect(location);
                         } else {
                             response.sendError(HttpServletResponse.SC_FORBIDDEN, result.getMessage());

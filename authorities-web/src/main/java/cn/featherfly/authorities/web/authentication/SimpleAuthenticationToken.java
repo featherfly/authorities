@@ -1,6 +1,6 @@
 package cn.featherfly.authorities.web.authentication;
 
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 
 /**
  * <p>
@@ -45,7 +45,7 @@ public class SimpleAuthenticationToken implements AuthenticationToken {
      */
     @Override
     public boolean verify(String token) {
-        if (LangUtils.isEmpty(token)) {
+        if (Lang.isEmpty(token)) {
             return false;
         }
         return token.equals(this.token);

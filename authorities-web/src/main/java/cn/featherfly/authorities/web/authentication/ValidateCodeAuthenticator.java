@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.authentication.AuthenticationException;
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 import cn.featherfly.common.locale.ResourceBundleUtils;
 import cn.featherfly.common.validate.SimpleValidateCodeGenerator;
 import cn.featherfly.common.validate.ValidateCode;
@@ -39,14 +39,14 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
     public void authenticate(A actor, HttpServletRequest request) {
         // TODO 加入动态配置，可以运行期打开关闭验证逻辑
         String clientValidateCode = request.getParameter(validateCodeKey);
-        if (LangUtils.isEmpty(clientValidateCode)) {
+        if (Lang.isEmpty(clientValidateCode)) {
             Object valid = request.getAttribute(validateCodeKey);
             if (valid != null) {
                 clientValidateCode = valid.toString();
             }
         }
         ValidateCode validateCode = getGeneratedValidCode(request);
-        if (LangUtils.isNotEmpty(clientValidateCode) && validateCode != null) {
+        if (Lang.isNotEmpty(clientValidateCode) && validateCode != null) {
             if (caseSensitive) {
                 if (clientValidateCode.equals(validateCode.getValid())) {
                     return;
@@ -84,7 +84,7 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      */
     public String getClientValidateCode(HttpServletRequest request) {
         String clientValidateCode = request.getParameter(validateCodeKey);
-        if (LangUtils.isEmpty(clientValidateCode)) {
+        if (Lang.isEmpty(clientValidateCode)) {
             Object valid = request.getAttribute(validateCodeKey);
             if (valid != null) {
                 clientValidateCode = valid.toString();

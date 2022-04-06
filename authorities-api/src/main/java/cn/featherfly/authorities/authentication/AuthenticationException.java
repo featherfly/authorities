@@ -17,12 +17,6 @@ public class AuthenticationException extends AuthorityException {
 
     /**
      * 构造方法
-     */
-    public AuthenticationException() {
-    }
-
-    /**
-     * 构造方法
      *
      * @param message 信息
      * @param argus   信息绑定参数

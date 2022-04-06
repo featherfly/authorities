@@ -5,21 +5,13 @@ import java.util.Locale;
 import cn.featherfly.common.exception.LocalizedException;
 
 /**
- * <p>
- * AuthorityException
- * </p>
+ * AuthorityException.
  *
  * @author 钟冀
  */
 public class AuthorityException extends LocalizedException {
 
     private static final long serialVersionUID = 1763928344130473684L;
-
-    /**
-     * 构造方法
-     */
-    public AuthorityException() {
-    }
 
     /**
      * 构造方法

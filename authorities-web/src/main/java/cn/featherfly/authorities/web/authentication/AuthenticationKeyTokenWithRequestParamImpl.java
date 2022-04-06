@@ -14,7 +14,7 @@ import cn.featherfly.common.algorithm.Base64;
 import cn.featherfly.common.algorithm.MD5;
 import cn.featherfly.common.algorithm.SHA;
 import cn.featherfly.common.lang.AssertIllegalArgument;
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 
 /**
  * <p>
@@ -99,7 +99,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
 
     public String getRequestDescp(HttpServletRequest request) {
         String requestDescp = null;
-        if (LangUtils.isNotEmpty(request.getContentType())
+        if (Lang.isNotEmpty(request.getContentType())
                 && MediaType.APPLICATION_JSON.includes(MediaType.parseMediaType(request.getContentType()))) {
             requestDescp = request.getRequestURL() + "?" + getRequestBody(request);
         } else {
@@ -125,7 +125,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     private String createRequestDescpWithParameter(HttpServletRequest request) {
         String requestDescp;
         String queryParamStr = getParameters(request);
-        if (LangUtils.isNotEmpty(queryParamStr)) {
+        if (Lang.isNotEmpty(queryParamStr)) {
             queryParamStr = "?" + queryParamStr;
         }
         requestDescp = request.getRequestURL() + queryParamStr;
@@ -138,7 +138,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
         while (names.hasMoreElements()) {
             String name = names.nextElement();
             String[] values = request.getParameterValues(name);
-            if (LangUtils.isNotEmpty(values)) {
+            if (Lang.isNotEmpty(values)) {
                 for (String value : values) {
                     if (null == value) {
                         value = "";

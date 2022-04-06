@@ -3,7 +3,7 @@ package cn.featherfly.authorities.web.authentication;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.featherfly.common.lang.LangUtils;
+import cn.featherfly.common.lang.Lang;
 
 /**
  * <p>
@@ -45,11 +45,11 @@ public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactor
     @Override
     public AuthenticationToken create(HttpServletRequest request) {
         String ak = request.getHeader("ak");
-        if (LangUtils.isEmpty(ak)) {
+        if (Lang.isEmpty(ak)) {
             ak = request.getParameter("ak");
         }
         String signature = request.getHeader("signature");
-        if (LangUtils.isEmpty(signature)) {
+        if (Lang.isEmpty(signature)) {
             signature = request.getParameter("signature");
         }
         switch (type) {
@@ -59,7 +59,7 @@ public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactor
                 return new AuthenticationKeyTokenWithRequestParamImpl(signature, ak);
             default:
                 String token = request.getHeader("token");
-                if (LangUtils.isEmpty(token)) {
+                if (Lang.isEmpty(token)) {
                     token = request.getParameter("token");
                 }
                 return new SimpleAuthenticationToken(token);
