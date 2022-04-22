@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.authentication.AuthenticationException;
+import cn.featherfly.authorities.authentication.Authentications;
 import cn.featherfly.common.lang.Lang;
 import cn.featherfly.common.locale.ResourceBundleUtils;
 import cn.featherfly.common.validate.SimpleValidateCodeGenerator;
@@ -23,12 +24,14 @@ import cn.featherfly.common.validate.ValidateCodeUtils;
  * @param <A> 类型
  * @author zhongj
  */
-public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthenticator<A> {
+public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthenticator<A> {
+
     /**
      */
     public ValidateCodeAuthenticator() {
         SimpleValidateCodeGenerator g = new SimpleValidateCodeGenerator();
         g.setSize(4);
+        authentications.add(Authentications.USERNAME_PASSWORD);
         this.validateCodeGenerator = g;
     }
 
@@ -36,8 +39,7 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      * {@inheritDoc}
      */
     @Override
-    public void authenticate(A actor, HttpServletRequest request) {
-        // TODO 加入动态配置，可以运行期打开关闭验证逻辑
+    protected void authenticate(A actor, HttpServletRequest request) {
         String clientValidateCode = request.getParameter(validateCodeKey);
         if (Lang.isEmpty(clientValidateCode)) {
             Object valid = request.getAttribute(validateCodeKey);
@@ -237,5 +239,13 @@ public class ValidateCodeAuthenticator<A extends Actor> implements WebAuthentica
      */
     public void setImageWith(int imageWith) {
         this.imageWith = imageWith;
+    }
+
+    public boolean validate(String validcode, HttpServletRequest request) {
+        ValidateCode validateCode = getGeneratedValidCode(request);
+        if (validateCode != null) {
+            return validateCode.getValid().equals(validcode);
+        }
+        return false;
     }
 }

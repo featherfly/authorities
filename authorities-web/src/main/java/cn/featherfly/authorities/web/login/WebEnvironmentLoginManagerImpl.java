@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.featherfly.authorities.Actor;
+import cn.featherfly.authorities.authentication.Authentication;
 import cn.featherfly.authorities.login.LoginListener;
 
 /**
@@ -35,8 +36,8 @@ public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends
      * {@inheritDoc}
      */
     @Override
-    public void login(A actor) {
-        loginManger.login(actor, request);
+    public void login(A actor, Authentication authentication) {
+        loginManger.login(actor, authentication, request);
     }
 
     /**

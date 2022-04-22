@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.AuthorityException;
+import cn.featherfly.authorities.authentication.Authentication;
 import cn.featherfly.authorities.login.LoginEvent;
 import cn.featherfly.authorities.login.LoginListener;
 import cn.featherfly.authorities.web.authentication.WebAuthenticator;
@@ -44,7 +45,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
      */
 
     @Override
-    public void login(A actor, HttpServletRequest request) {
+    public void login(A actor, Authentication authentication, HttpServletRequest request) {
         logger.debug("登录: {}", actor.getDescp());
         if (Lang.isEmpty(authenticators)) {
             throw new AuthorityException("#authenticators.null");
@@ -53,7 +54,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
         // authrizate(request, webActorLoginStorage.getLoginActors().size());
         for (@SuppressWarnings("unchecked")
         WebAuthenticator<A> authenticator : authenticators) {
-            authenticator.authenticate(actor, request);
+            authenticator.authenticate(actor, authentication, request);
         }
         // 判断串session,使用注销前用户的策略
         String key = getKey(request);
@@ -72,8 +73,11 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
             logout(actor);
         }
         webActorLoginStorage.store(key, actor);
+        // store后才有loginInfo;
         W webLoginInfo = getLoginInfo(request);
         webLoginInfo.setIp(ServletUtils.getIpAddr(request));
+        webLoginInfo.setAuthentication(authentication);
+
         LoginEvent<W, A> loginEvent = new LoginEvent<>();
         loginEvent.setLoginInfo(webLoginInfo);
         for (LoginListener<W, A> loginListener : loginListeners) {

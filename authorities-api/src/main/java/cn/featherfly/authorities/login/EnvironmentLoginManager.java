@@ -3,6 +3,7 @@ package cn.featherfly.authorities.login;
 import java.util.List;
 
 import cn.featherfly.authorities.Actor;
+import cn.featherfly.authorities.authentication.Authentication;
 
 /**
  * <p>
@@ -16,13 +17,12 @@ import cn.featherfly.authorities.Actor;
 public interface EnvironmentLoginManager<I extends LoginInfo<A>, A extends Actor> {
 
     /**
-     * <p>
-     * 登录. 不成功会抛出AuthenticationException
-     * </p>
+     * 登录. 不成功会抛出AuthenticationException.
      *
-     * @param actor 行动者
+     * @param actor          行动者
+     * @param authentication 鉴定模式
      */
-    void login(A actor);
+    void login(A actor, Authentication authentication);
 
     /**
      * <p>
