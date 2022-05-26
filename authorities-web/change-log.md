@@ -1,3 +1,6 @@
+# 0.4.1 2022-05-26
+1. 修复ValidateCodeAuthenticator.validate(String validcode, HttpServletRequest request)没有基于caseSensitive决定是否区分大小写的问题
+
 # 0.4.0 2022-04-22
 1. 加入登录验证模式
 

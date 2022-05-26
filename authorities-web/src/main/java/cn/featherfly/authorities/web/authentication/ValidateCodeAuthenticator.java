@@ -244,7 +244,11 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     public boolean validate(String validcode, HttpServletRequest request) {
         ValidateCode validateCode = getGeneratedValidCode(request);
         if (validateCode != null) {
-            return validateCode.getValid().equals(validcode);
+            if (caseSensitive) {
+                return validateCode.getValid().equals(validcode);
+            } else {
+                return validateCode.getValid().equalsIgnoreCase(validcode);
+            }
         }
         return false;
     }
