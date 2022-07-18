@@ -17,9 +17,7 @@ import cn.featherfly.common.lang.AssertIllegalArgument;
 import cn.featherfly.common.lang.Lang;
 
 /**
- * <p>
- * AuthenticationKeyToolV2
- * </p>
+ * AuthenticationKeyToolV2.
  *
  * @author zhongj
  */
@@ -28,10 +26,10 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     private java.nio.charset.Charset requestEncoding = StandardCharsets.UTF_8;
 
     /**
-     * this construct is for decode
+     * this construct is for decode.
      *
-     * @param signature
-     * @param authenticationKey
+     * @param signature         the signature
+     * @param authenticationKey the authentication key
      */
     public AuthenticationKeyTokenWithRequestParamImpl(String signature, String authenticationKey) {
         setSignature(signature);
@@ -39,12 +37,12 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
-     * this construct is for encode
+     * this construct is for encode.
      *
-     * @param token
-     * @param identity
-     * @param timestamp
-     * @param requestDescp
+     * @param token        the token
+     * @param identity     the identity
+     * @param timestamp    the timestamp
+     * @param requestDescp the request descp
      */
     public AuthenticationKeyTokenWithRequestParamImpl(String token, String identity, Long timestamp,
             String requestDescp) {
@@ -69,7 +67,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
-     * 验证token
+     * 验证token.
      *
      * @param token token
      * @return 是否是当前token boolean
@@ -83,7 +81,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
-     * 验证token
+     * 验证token.
      *
      * @param token   token
      * @param request request
@@ -97,6 +95,12 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
         return generateSignature(token, Long.parseLong(akvs[1]), requestDescp, true).equals(signature);
     }
 
+    /**
+     * Gets the request descp.
+     *
+     * @param request the request
+     * @return the request descp
+     */
     public String getRequestDescp(HttpServletRequest request) {
         String requestDescp = null;
         if (Lang.isNotEmpty(request.getContentType())
@@ -166,8 +170,9 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * Sets signature.
      *
-     * @param token     the token
-     * @param timestamp the timestamp
+     * @param token        the token
+     * @param timestamp    the timestamp
+     * @param requestDescp the request descp
      */
     public void setSignature(String token, Long timestamp, String requestDescp) {
         this.setSignature(generateSignature(token, timestamp, requestDescp, true));
@@ -188,8 +193,9 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * Sets authentication key.
      *
-     * @param identity  the identity
-     * @param timestamp the timestamp
+     * @param identity     the identity
+     * @param timestamp    the timestamp
+     * @param requestDescp the request descp
      */
     public void setAuthenticationKey(String identity, Long timestamp, String requestDescp) {
         this.setAuthenticationKey(generateAuthenticationKey(identity, timestamp, requestDescp));
@@ -205,7 +211,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
-     * 返回requestEncoding
+     * 返回requestEncoding.
      *
      * @return requestEncoding
      */
@@ -214,7 +220,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     /**
-     * 设置requestEncoding
+     * 设置requestEncoding.
      *
      * @param requestEncoding requestEncoding
      */

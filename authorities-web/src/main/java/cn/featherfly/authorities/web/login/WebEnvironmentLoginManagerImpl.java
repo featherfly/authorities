@@ -9,13 +9,11 @@ import cn.featherfly.authorities.authentication.Authentication;
 import cn.featherfly.authorities.login.LoginListener;
 
 /**
- * <p>
- * WebEnvironmentLoginManagerImpl
- * </p>
+ * WebEnvironmentLoginManagerImpl.
  *
+ * @author 钟冀
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
  */
 public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends Actor>
         implements WebEnvironmentLoginManager<W, A> {
@@ -25,7 +23,10 @@ public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends
     private HttpServletRequest request;
 
     /**
-     * @param loginManger
+     * Instantiates a new web environment login manager impl.
+     *
+     * @param loginManger the login manger
+     * @param request     the request
      */
     public WebEnvironmentLoginManagerImpl(WebLoginManager<W, A> loginManger, HttpServletRequest request) {
         super();

@@ -3,10 +3,7 @@ package cn.featherfly.authorities.web.authentication;
 import cn.featherfly.common.lang.Lang;
 
 /**
- * <p>
- * SimpleAuthenticationToken
- * </p>
- * 
+ * SimpleAuthenticationToken.
  *
  * @author zhongj
  */
@@ -15,7 +12,9 @@ public class SimpleAuthenticationToken implements AuthenticationToken {
     private String token;
 
     /**
-     * @param token
+     * Instantiates a new simple authentication token.
+     *
+     * @param token the token
      */
     public SimpleAuthenticationToken(String token) {
         super();
@@ -23,7 +22,7 @@ public class SimpleAuthenticationToken implements AuthenticationToken {
     }
 
     /**
-     * 返回token
+     * 返回token.
      *
      * @return token
      */
@@ -32,7 +31,7 @@ public class SimpleAuthenticationToken implements AuthenticationToken {
     }
 
     /**
-     * 设置token
+     * 设置token.
      *
      * @param token token
      */

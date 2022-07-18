@@ -17,16 +17,15 @@ import cn.featherfly.common.validate.ValidateCodeGenerator;
 import cn.featherfly.common.validate.ValidateCodeUtils;
 
 /**
- * <p>
- * 验证码验证器
- * </p>
+ * 验证码验证器.
  *
- * @param <A> 类型
  * @author zhongj
+ * @param <A> 类型
  */
 public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthenticator<A> {
 
     /**
+     * Instantiates a new validate code authenticator.
      */
     public ValidateCodeAuthenticator() {
         SimpleValidateCodeGenerator g = new SimpleValidateCodeGenerator();
@@ -68,6 +67,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * <p>
      * 设置需要验证的code，用于在authenticate方法中使用
      * </p>
+     * .
      *
      * @param request   request
      * @param validCode code
@@ -80,9 +80,10 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * <p>
      * 获取需要验证的code，用于在authenticate方法中使用
      * </p>
+     * .
      *
      * @param request request
-     * @return
+     * @return the client validate code
      */
     public String getClientValidateCode(HttpServletRequest request) {
         String clientValidateCode = request.getParameter(validateCodeKey);
@@ -99,6 +100,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * <p>
      * 设置生成的验证码用于后续进行验证
      * </p>
+     * .
      *
      * @param request   request
      * @param validCode code
@@ -108,21 +110,21 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * getGeneratedValidCode
+     * getGeneratedValidCode.
      *
-     * @param request
-     * @return
+     * @param request the request
+     * @return the generated valid code
      */
     public ValidateCode getGeneratedValidCode(HttpServletRequest request) {
         return (ValidateCode) request.getSession().getAttribute(validateCodeKey);
     }
 
     /**
-     * 生成验证图片并使用response输出
+     * 生成验证图片并使用response输出.
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  the request
+     * @param response the response
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public void generateValidCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setHeader("Pragma", "No-cache");
@@ -152,7 +154,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     private ValidateCodeGenerator validateCodeGenerator;
 
     /**
-     * 返回caseSensitive
+     * 返回caseSensitive.
      *
      * @return caseSensitive
      */
@@ -161,7 +163,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 设置caseSensitive
+     * 设置caseSensitive.
      *
      * @param caseSensitive caseSensitive
      */
@@ -170,7 +172,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 返回validateCodeKey
+     * 返回validateCodeKey.
      *
      * @return validateCodeKey
      */
@@ -179,7 +181,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 设置validateCodeKey
+     * 设置validateCodeKey.
      *
      * @param validateCodeKey validateCodeKey
      */
@@ -188,7 +190,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 返回validateCodeGenerator
+     * 返回validateCodeGenerator.
      *
      * @return validateCodeGenerator
      */
@@ -197,7 +199,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 设置validateCodeGenerator
+     * 设置validateCodeGenerator.
      *
      * @param validateCodeGenerator validateCodeGenerator
      */
@@ -206,7 +208,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 返回imageHight
+     * 返回imageHight.
      *
      * @return imageHight
      */
@@ -215,7 +217,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 设置imageHight
+     * 设置imageHight.
      *
      * @param imageHight imageHight
      */
@@ -224,7 +226,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 返回imageWith
+     * 返回imageWith.
      *
      * @return imageWith
      */
@@ -233,7 +235,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     }
 
     /**
-     * 设置imageWith
+     * 设置imageWith.
      *
      * @param imageWith imageWith
      */
@@ -241,6 +243,13 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
         this.imageWith = imageWith;
     }
 
+    /**
+     * Validate.
+     *
+     * @param validcode the validcode
+     * @param request   the request
+     * @return true, if successful
+     */
     public boolean validate(String validcode, HttpServletRequest request) {
         ValidateCode validateCode = getGeneratedValidCode(request);
         if (validateCode != null) {

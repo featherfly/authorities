@@ -20,25 +20,23 @@ import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.web.servlet.ServletUtils;
 
 /**
- * <p>
- * WebAuthorityChecker
- * </p>
+ * WebAuthorityChecker.
  *
  * @author zhongj
  */
 public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
 
-    /**
-     * logger
-     */
+    /** logger. */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+    /** The charset. */
     protected String charset = "UTF-8";
 
+    /** The excludes. */
     protected Collection<String> excludes = new HashSet<>();
 
     /**
@@ -64,6 +62,12 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
         return true;
     }
 
+    /**
+     * Render.
+     *
+     * @param response the response
+     * @param result   the result
+     */
     protected void render(HttpServletResponse response, Object result) {
         try {
             response.setContentType("application/json;charset=" + charset);
@@ -76,16 +80,17 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     }
 
     /**
-     * doCheck
+     * doCheck.
      *
      * @param request  request
      * @param response response
+     * @param uri      the uri
      * @return check result
      */
     protected abstract boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri);
 
     /**
-     * 返回charset
+     * 返回charset.
      *
      * @return charset
      */
@@ -94,7 +99,7 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     }
 
     /**
-     * 设置charset
+     * 设置charset.
      *
      * @param charset charset
      */
@@ -103,7 +108,7 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     }
 
     /**
-     * 返回excludes
+     * 返回excludes.
      *
      * @return excludes
      */
@@ -112,7 +117,7 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     }
 
     /**
-     * 设置excludes
+     * 设置excludes.
      *
      * @param excludes excludes
      */

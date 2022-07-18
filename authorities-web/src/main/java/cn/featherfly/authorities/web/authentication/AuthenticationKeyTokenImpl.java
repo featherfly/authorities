@@ -6,17 +6,17 @@ import cn.featherfly.common.algorithm.SHA;
 import cn.featherfly.common.lang.AssertIllegalArgument;
 
 /**
- * <p>
- * AuthenticationKeyTokenV1
- * </p>
+ * AuthenticationKeyTokenV1.
  *
  * @author zhongj
  */
 public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
 
     /**
-     * @param signature
-     * @param authenticationKey
+     * Instantiates a new authentication key token impl.
+     *
+     * @param signature         the signature
+     * @param authenticationKey the authentication key
      */
     public AuthenticationKeyTokenImpl(String signature, String authenticationKey) {
         setSignature(signature);
@@ -24,9 +24,11 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
     }
 
     /**
-     * @param token
-     * @param identity
-     * @param timestamp
+     * Instantiates a new authentication key token impl.
+     *
+     * @param token     the token
+     * @param identity  the identity
+     * @param timestamp the timestamp
      */
     public AuthenticationKeyTokenImpl(String token, String identity, Long timestamp) {
         setSignature(token, timestamp);
@@ -46,7 +48,7 @@ public class AuthenticationKeyTokenImpl extends AbstractAuthenticationKeyToken {
     }
 
     /**
-     * 验证token
+     * 验证token.
      *
      * @param token token
      * @return 是否是当前token boolean

@@ -4,9 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <p>
- * AuthorizedInterceptor
- * </p>
+ * AuthorizedInterceptor.
  *
  * @author 钟冀
  */
@@ -17,13 +15,16 @@ public class WebEnv {
     private HttpServletResponse response;
 
     /**
+     * Instantiates a new web env.
      */
     public WebEnv() {
     }
 
     /**
-     * @param request
-     * @param response
+     * Instantiates a new web env.
+     *
+     * @param request  the request
+     * @param response the response
      */
     public WebEnv(HttpServletRequest request, HttpServletResponse response) {
         super();
@@ -32,7 +33,7 @@ public class WebEnv {
     }
 
     /**
-     * 返回request
+     * 返回request.
      *
      * @return request
      */
@@ -41,7 +42,7 @@ public class WebEnv {
     }
 
     /**
-     * 设置request
+     * 设置request.
      *
      * @param request request
      */
@@ -50,7 +51,7 @@ public class WebEnv {
     }
 
     /**
-     * 返回response
+     * 返回response.
      *
      * @return response
      */
@@ -59,7 +60,7 @@ public class WebEnv {
     }
 
     /**
-     * 设置response
+     * 设置response.
      *
      * @param response response
      */

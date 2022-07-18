@@ -2,10 +2,7 @@
 package cn.featherfly.authorities.web.authentication;
 
 /**
- * <p>
- * AuthenticationKey
- * </p>
- * 
+ * AuthenticationKey.
  *
  * @author zhongj
  */
@@ -25,7 +22,9 @@ public interface AuthenticationKeyToken extends AuthenticationToken {
     String getAuthenticationKey();
 
     /**
-     * 根据AuthenticationKey对应的时间戳
+     * 根据AuthenticationKey对应的时间戳.
+     *
+     * @return the timestamp
      */
     Long getTimestamp();
 }

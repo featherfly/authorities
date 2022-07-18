@@ -22,17 +22,20 @@ import cn.featherfly.web.servlet.ServletUtils;
  * <p>
  * AbstractWebLoginManager
  * </p>
+ * .
  *
+ * @author 钟冀
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
  */
 public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A extends Actor>
         implements WebLoginManager<W, A> {
 
+    /** The logger. */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
+     * Instantiates a new abstract web login manager.
      */
     public AbstractWebLoginManager() {
     }
@@ -85,6 +88,12 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
         }
     }
 
+    /**
+     * Gets the key.
+     *
+     * @param request the request
+     * @return the key
+     */
     protected abstract String getKey(HttpServletRequest request);
 
     /**
@@ -227,7 +236,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     private boolean checkCrossSession;
 
     /**
-     * 返回sameOnline
+     * 返回sameOnline.
      *
      * @return sameOnline
      */
@@ -236,7 +245,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 设置sameOnline
+     * 设置sameOnline.
      *
      * @param sameOnline sameOnline
      */
@@ -245,7 +254,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 设置webActorLoginStorage
+     * 设置webActorLoginStorage.
      *
      * @param webActorLoginStorage webActorLoginStorage
      */
@@ -254,7 +263,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 设置loginListeners
+     * 设置loginListeners.
      *
      * @param loginListeners loginListeners
      */
@@ -266,7 +275,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     private List<WebAuthenticator> authenticators = new ArrayList<>();
 
     /**
-     * 返回authenticators
+     * 返回authenticators.
      *
      * @return authenticators
      */
@@ -276,7 +285,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 设置authenticators
+     * 设置authenticators.
      *
      * @param authenticators authenticators
      */
@@ -285,7 +294,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 返回checkCrossSession
+     * 返回checkCrossSession.
      *
      * @return checkCrossSession
      */
@@ -294,7 +303,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     }
 
     /**
-     * 设置checkCrossSession
+     * 设置checkCrossSession.
      *
      * @param checkCrossSession checkCrossSession
      */
