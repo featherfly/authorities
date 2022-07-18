@@ -1,3 +1,6 @@
+# 0.4.2 2022-07-18
+1. Authentications加入EMAIL_VALIDCODE
+
 # 0.4.1 2022-05-26
 1. 修复ValidateCodeAuthenticator.validate(String validcode, HttpServletRequest request)没有基于caseSensitive决定是否区分大小写的问题
 

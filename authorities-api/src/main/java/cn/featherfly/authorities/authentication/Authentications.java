@@ -25,6 +25,10 @@ public enum Authentications implements Authentication {
      */
     MOBILE_VALIDCODE,
     /**
+     * 邮件验证码
+     */
+    EMAIL_VALIDCODE,
+    /**
      * 微信登录
      */
     WECHAT,
