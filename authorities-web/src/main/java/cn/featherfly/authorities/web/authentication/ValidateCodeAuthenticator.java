@@ -46,18 +46,21 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
                 clientValidateCode = valid.toString();
             }
         }
-        ValidateCode validateCode = getGeneratedValidCode(request);
-        if (Lang.isNotEmpty(clientValidateCode) && validateCode != null) {
-            if (caseSensitive) {
-                if (clientValidateCode.equals(validateCode.getValid())) {
-                    return;
-                }
-            } else {
-                if (clientValidateCode.equalsIgnoreCase(validateCode.getValid().toString())) {
-                    return;
-                }
-            }
+        if (validate(clientValidateCode, request)) {
+            return;
         }
+        //        ValidateCode validateCode = getGeneratedValidCode(request);
+        //        if (Lang.isNotEmpty(clientValidateCode) && validateCode != null) {
+        //            if (caseSensitive) {
+        //                if (clientValidateCode.equals(validateCode.getValid())) {
+        //                    return;
+        //                }
+        //            } else {
+        //                if (clientValidateCode.equalsIgnoreCase(validateCode.getValid().toString())) {
+        //                    return;
+        //                }
+        //            }
+        //        }
 
         throw new AuthenticationException(
                 ResourceBundleUtils.getString(AuthorityException.class, "validateCode.error"));
