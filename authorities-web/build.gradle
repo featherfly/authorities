@@ -2,7 +2,7 @@
 dependencies {
     api project(":authorities-api")
     
-    api 'cn.featherfly:featherfly-web-springmvc:0.4.17'
-    api group: 'org.redisson', name: 'redisson', version: '3.17.0'
+    api group: 'cn.featherfly', name: 'featherfly-web-springmvc', version: '0.4.18'
+    api group: 'org.redisson', name: 'redisson', version: '3.18.0'
 
 }
