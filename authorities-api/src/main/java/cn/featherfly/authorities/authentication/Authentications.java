@@ -33,8 +33,35 @@ public enum Authentications implements Authentication {
      */
     WECHAT,
     /**
+     * 企业微信
+     */
+    EWECHAT,
+    /**
+     * QQ
+     */
+    QQ,
+    /**
      * 支付宝登录
      */
-    ALIPAY;
-
+    ALIPAY,
+    /**
+     * 钉钉
+     */
+    DINGTALK,
+    /**
+     * 阿里云
+     */
+    ALIYUN,
+    /**
+     * 微博
+     */
+    WEIBO,
+    /**
+     * 百度
+     */
+    BAIDU,
+    /**
+     * 抖音
+     */
+    DOUYIN;
 }
