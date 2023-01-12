@@ -9,22 +9,21 @@ import java.util.Map;
 import cn.featherfly.authorities.Actor;
 
 /**
- * <p>
- * web环境简单实现抽象，不支持集群
- * </p>
- * @param <W>
- *            登陆信息
- * @param <A>
- *            行动者具体类型
+ * web环境简单实现抽象，不支持集群.
+ *
+ * @param <W> 登陆信息
+ * @param <A> 行动者具体类型
  * @author 钟冀
+ * @deprecated use {@link AbstractCacheableWebActorLoginStorage} instead
  */
+@Deprecated
 public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A extends Actor>
         implements WebActorLoginStorage<W, A> {
 
-    private Map<String, W> webLoginInfos = new HashMap<String, W>();
+    private Map<String, W> webLoginInfos = new HashMap<>();
 
     /**
-	 */
+     */
     public AbstractWebActorLoginStorage() {
     }
 
@@ -32,7 +31,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
      * <p>
      * 创建LoginInfo
      * </p>
-     * 
+     *
      * @return 登陆信息
      */
     protected abstract W createLoginInfo();
@@ -95,7 +94,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
      */
     @Override
     public List<A> getLoginActors() {
-        ArrayList<A> actors = new ArrayList<A>();
+        ArrayList<A> actors = new ArrayList<>();
         for (W loginActor : webLoginInfos.values()) {
             A a = loginActor.getActor();
             actors.add(a);
@@ -108,7 +107,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
      */
     @Override
     public List<W> getLoginInfos() {
-        return new ArrayList<W>(webLoginInfos.values());
+        return new ArrayList<>(webLoginInfos.values());
     }
 
     /**

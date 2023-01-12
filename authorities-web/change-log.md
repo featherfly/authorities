@@ -1,5 +1,5 @@
-# 0.
-1. 依赖版本升级
+# 0.4.4
+1. 不兼容依赖版本升级
 
 # 0.4.3 2022-11-21
 1. Authentications加入EWECHAT,QQ,ALIPAY,DINGTALK,ALIYUN,WEIBO,BAIDU,DOUYIN

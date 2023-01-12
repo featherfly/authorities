@@ -3,19 +3,16 @@ package cn.featherfly.authorities.web.login;
 import cn.featherfly.authorities.Actor;
 
 /**
- * <p>
- * web环境简单实现，不支持集群
- * </p>
- *
+ * web环境简单实现，不支持集群.
  *
  * @author 钟冀
+ * @deprecated use {@link CacheableWebActorLoginStorageImpl} instead
  */
-public class WebActorLoginStorageImpl
-        extends
-        AbstractWebActorLoginStorage<WebLoginInfo<Actor>, Actor> {
+@Deprecated
+public class WebActorLoginStorageImpl extends AbstractWebActorLoginStorage<WebLoginInfo<Actor>, Actor> {
 
     /**
-	 */
+     */
     public WebActorLoginStorageImpl() {
     }
 
@@ -24,6 +21,6 @@ public class WebActorLoginStorageImpl
      */
     @Override
     protected WebLoginInfo<Actor> createLoginInfo() {
-        return new WebLoginInfo<Actor>();
+        return new WebLoginInfo<>();
     }
 }
