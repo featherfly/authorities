@@ -46,7 +46,6 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     @Override
     protected boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri) {
         Result<?> result = new Result<>();
-        result.setStatus(0);
         Authority authority = facotry.create(request);
         if (authority != null) {
             Actor actor = loginManager.getLoginInfo(request).getActor();

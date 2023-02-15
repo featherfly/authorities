@@ -37,7 +37,6 @@ public class WebAuthenticatedChecker extends AbstractChecker implements Authenti
     @Override
     protected boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri) {
         Result<?> result = new Result<>();
-        result.setStatus(0);
         boolean authenticated = true;
         if (!loginManager.isLogin(request)) {
             try {
