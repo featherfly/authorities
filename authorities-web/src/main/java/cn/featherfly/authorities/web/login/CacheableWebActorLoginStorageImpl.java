@@ -13,7 +13,9 @@ public class CacheableWebActorLoginStorageImpl
         extends AbstractCacheableWebActorLoginStorage<WebLoginInfo<Actor>, Actor> {
 
     /**
-     * @param cache
+     * Instantiates a new cacheable web actor login storage impl.
+     *
+     * @param cache cache
      */
     public CacheableWebActorLoginStorageImpl(Cache<String, WebLoginInfo<Actor>> cache) {
         super(cache);

@@ -19,10 +19,7 @@ import cn.featherfly.common.lang.Lang;
 import cn.featherfly.web.servlet.ServletUtils;
 
 /**
- * <p>
- * AbstractWebLoginManager
- * </p>
- * .
+ * AbstractWebLoginManager.
  *
  * @author 钟冀
  * @param <W> 登陆信息
@@ -43,10 +40,6 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
     /**
      * {@inheritDoc}
      */
-    /**
-     * {@inheritDoc}
-     */
-
     @Override
     public void login(A actor, Authentication authentication, HttpServletRequest request) {
         logger.debug("登录: {}", actor.getDescp());
