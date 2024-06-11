@@ -41,6 +41,9 @@ task sourcesJar(type: Jar) {
 
 task javadocJar(type: Jar, dependsOn:javadoc) {
     archiveClassifier.set("javadoc")
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
     from javadoc.destinationDir
 }
 
