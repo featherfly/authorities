@@ -16,7 +16,7 @@ import cn.featherfly.authorities.authentication.Authentication;
  * </p>
  *
  * @param <A> actor类型
- * @author 钟冀
+ * @author zhongj
  */
 public class LoginInfo<A extends Actor> {
     /**

@@ -7,7 +7,7 @@ import cn.featherfly.common.exception.LocalizedException;
 /**
  * AuthorityException.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class AuthorityException extends LocalizedException {
 

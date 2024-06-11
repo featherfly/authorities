@@ -2,9 +2,7 @@
 package cn.featherfly.authorities;
 
 /**
- * <p>
- * BusinessRole
- * </p>
+ * BusinessRole.
  *
  * @author zhongj
  */

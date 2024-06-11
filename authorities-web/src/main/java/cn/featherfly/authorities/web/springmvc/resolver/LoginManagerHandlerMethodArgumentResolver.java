@@ -1,7 +1,5 @@
 package cn.featherfly.authorities.web.springmvc.resolver;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -12,13 +10,12 @@ import cn.featherfly.authorities.web.login.WebEnvironmentLoginManager;
 import cn.featherfly.authorities.web.login.WebEnvironmentLoginManagerImpl;
 import cn.featherfly.authorities.web.login.WebLoginManager;
 import cn.featherfly.common.lang.ClassUtils;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- * LoginManager方法参数Resolver
- * </p>
+ * LoginManager方法参数Resolver.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class LoginManagerHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -35,7 +32,7 @@ public class LoginManagerHandlerMethodArgumentResolver implements HandlerMethodA
      */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         return new WebEnvironmentLoginManagerImpl<>(loginManager, (HttpServletRequest) webRequest.getNativeRequest());
     }
 

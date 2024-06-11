@@ -13,7 +13,7 @@ import cn.featherfly.authorities.Actor;
  *            登录信息
  * @param <A>
  *            行动者具体类型
- * @author 钟冀
+ * @author zhongj
  */
 public interface ActorLoginStorage<I extends LoginInfo<A>, A extends Actor> {
     /**

@@ -1,41 +1,34 @@
 package cn.featherfly.authorities.web.login;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.login.LoginManager;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
- * <p>
- * Web应用登录用户管理程序
- * </p>
+ * Web应用登录用户管理程序.
  *
  * @param <W>
- *            登陆信息
+ *        登陆信息
  * @param <A>
- *            行动者具体类型
- * @author 钟冀
+ *        行动者具体类型
+ * @author zhongj
  */
 public interface WebLoginManager<W extends WebLoginInfo<A>, A extends Actor>
-        extends LoginManager<HttpServletRequest, W, A> {
+    extends LoginManager<HttpServletRequest, W, A> {
     /**
-     * <p>
-     * 注销
-     * </p>
-     * 
+     * 注销.
+     *
      * @param session
-     *            HttpSession
+     *        HttpSession
      */
     void logout(HttpSession session);
 
     /**
-     * <p>
      * 获取指定行动者的登录信息.
-     * </p>
-     * 
+     *
      * @param session
-     *            HttpSession
+     *        HttpSession
      * @return 指定行动者的登录信息
      */
     W getLoginInfo(HttpSession session);

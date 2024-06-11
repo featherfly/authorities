@@ -2,9 +2,7 @@
 package cn.featherfly.authorities;
 
 /**
- * <p>
- * SimpleAuthority
- * </p>
+ * SimpleAuthority.
  *
  * @author zhongj
  */
@@ -17,9 +15,7 @@ public class SimpleAuthority implements Authority {
     private String descp;
 
     /**
-     * 返回code
-     *
-     * @return code
+     * {@inheritDoc}
      */
     @Override
     public String getCode() {
@@ -36,9 +32,7 @@ public class SimpleAuthority implements Authority {
     }
 
     /**
-     * 返回name
-     *
-     * @return name
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -55,9 +49,7 @@ public class SimpleAuthority implements Authority {
     }
 
     /**
-     * 返回descp
-     *
-     * @return descp
+     * {@inheritDoc}
      */
     @Override
     public String getDescp() {

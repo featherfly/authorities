@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
@@ -18,6 +15,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cn.featherfly.authorities.AuthorityChecker;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.web.servlet.ServletUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * WebAuthorityChecker.
@@ -66,14 +65,14 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
      * Render.
      *
      * @param response the response
-     * @param result   the result
+     * @param result the result
      */
     protected void render(HttpServletResponse response, Object result) {
         try {
             response.setContentType("application/json;charset=" + charset);
             response.setCharacterEncoding(charset);
             objectMapper.setSerializationInclusion(Include.NON_EMPTY).writerFor(result.getClass())
-                    .writeValue(response.getOutputStream(), result);
+                .writeValue(response.getOutputStream(), result);
         } catch (IOException e) {
             throw new AuthorityException(e);
         }
@@ -82,9 +81,9 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     /**
      * doCheck.
      *
-     * @param request  request
+     * @param request request
      * @param response response
-     * @param uri      the uri
+     * @param uri the uri
      * @return check result
      */
     protected abstract boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri);

@@ -4,23 +4,38 @@ package cn.featherfly.authorities;
 import java.util.List;
 
 /**
- * <p>
- * Role
- * </p>
- * <p>
- * 2019-08-22
- * </p>
+ * Role.
  *
  * @author zhongj
  */
 public interface Role {
 
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
     String getCode();
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     String getName();
 
+    /**
+     * Gets the descp.
+     *
+     * @return the descp
+     */
     String getDescp();
 
+    /**
+     * Gets the actors.
+     *
+     * @return the actors
+     */
     List<Actor> getActors();
 
     /**
@@ -37,6 +52,7 @@ public interface Role {
      * <p>
      * 返回行动者拥有的许可
      * </p>
+     * .
      *
      * @return 行动者拥有的许可
      */
@@ -46,6 +62,7 @@ public interface Role {
      * <p>
      * 返回行动者可以看到的许可
      * </p>
+     * .
      *
      * @return 行动者可以看到的许可
      */
@@ -55,6 +72,7 @@ public interface Role {
      * <p>
      * 返回行动者可以对其他人授权的权限
      * </p>
+     * .
      *
      * @return 行动者可以对其他人授权的权限
      */

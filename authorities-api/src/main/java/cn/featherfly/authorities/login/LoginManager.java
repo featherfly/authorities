@@ -11,7 +11,7 @@ import cn.featherfly.authorities.authentication.Authentication;
  * </p>
  * .
  *
- * @author 钟冀
+ * @author zhongj
  * @param <E> 泛型，用于具体依赖环境的定义
  * @param <I> 登录信息
  * @param <A> actor类型

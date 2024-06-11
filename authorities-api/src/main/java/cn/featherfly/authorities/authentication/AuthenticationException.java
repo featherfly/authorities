@@ -9,7 +9,7 @@ import cn.featherfly.authorities.AuthorityException;
  * 认证异常
  * </p>
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class AuthenticationException extends AuthorityException {
 

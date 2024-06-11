@@ -11,7 +11,7 @@ import cn.featherfly.authorities.Application;
  * </p>
  * .
  *
- * @author 钟冀
+ * @author zhongj
  * @param <E> 泛型，用于具体依赖运行环境的定义
  * @param <L> the generic type
  * @param <I> the generic type

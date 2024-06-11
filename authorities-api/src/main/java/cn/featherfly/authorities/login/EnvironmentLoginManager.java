@@ -12,7 +12,7 @@ import cn.featherfly.authorities.authentication.Authentication;
  *
  * @param <I> 登录信息
  * @param <A> actor类型
- * @author 钟冀
+ * @author zhongj
  */
 public interface EnvironmentLoginManager<I extends LoginInfo<A>, A extends Actor> {
 

@@ -1,8 +1,7 @@
-  
 dependencies {
     api project(":authorities-api")
     
     api group: 'javax.cache', name: 'cache-api', version: '1.1.1'
-    api group: 'cn.featherfly', name: 'featherfly-web-springmvc', version: '0.4.19'
+    api group: 'cn.featherfly', name: 'featherfly-web-springmvc', version: '1.0.0'
 
 }

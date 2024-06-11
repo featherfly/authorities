@@ -2,21 +2,20 @@ package cn.featherfly.authorities.web.login;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.authentication.Authentication;
 import cn.featherfly.authorities.login.LoginListener;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * WebEnvironmentLoginManagerImpl.
  *
- * @author 钟冀
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
+ * @author zhongj
  */
 public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends Actor>
-        implements WebEnvironmentLoginManager<W, A> {
+    implements WebEnvironmentLoginManager<W, A> {
 
     private WebLoginManager<W, A> loginManger;
 
@@ -26,7 +25,7 @@ public class WebEnvironmentLoginManagerImpl<W extends WebLoginInfo<A>, A extends
      * Instantiates a new web environment login manager impl.
      *
      * @param loginManger the login manger
-     * @param request     the request
+     * @param request the request
      */
     public WebEnvironmentLoginManagerImpl(WebLoginManager<W, A> loginManger, HttpServletRequest request) {
         super();

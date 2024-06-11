@@ -2,22 +2,19 @@ package cn.featherfly.authorities.web;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.featherfly.authorities.AuthenticatedChecker;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.web.login.WebLoginManager;
 import cn.featherfly.common.lang.LogUtils;
 import cn.featherfly.common.locale.ResourceBundleUtils;
 import cn.featherfly.web.spring.servlet.view.Result;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * <p>
- * AuthorizedInterceptor
- * </p>
+ * AuthorizedInterceptor.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class WebAuthenticatedChecker extends AbstractChecker implements AuthenticatedChecker<WebEnv> {
 

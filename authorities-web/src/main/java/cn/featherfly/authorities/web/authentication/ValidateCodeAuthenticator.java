@@ -2,9 +2,6 @@ package cn.featherfly.authorities.web.authentication;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.authentication.AuthenticationException;
@@ -15,12 +12,14 @@ import cn.featherfly.common.validate.SimpleValidateCodeGenerator;
 import cn.featherfly.common.validate.ValidateCode;
 import cn.featherfly.common.validate.ValidateCodeGenerator;
 import cn.featherfly.common.validate.ValidateCodeUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 验证码验证器.
  *
- * @author zhongj
  * @param <A> 类型
+ * @author zhongj
  */
 public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthenticator<A> {
 
@@ -31,7 +30,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
         SimpleValidateCodeGenerator g = new SimpleValidateCodeGenerator();
         g.setSize(4);
         authentications.add(Authentications.USERNAME_PASSWORD);
-        this.validateCodeGenerator = g;
+        validateCodeGenerator = g;
     }
 
     /**
@@ -63,7 +62,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
         //        }
 
         throw new AuthenticationException(
-                ResourceBundleUtils.getString(AuthorityException.class, "validateCode.error"));
+            ResourceBundleUtils.getString(AuthorityException.class, "validateCode.error"));
     }
 
     /**
@@ -72,7 +71,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * </p>
      * .
      *
-     * @param request   request
+     * @param request request
      * @param validCode code
      */
     public void setClientValidateCode(HttpServletRequest request, String validCode) {
@@ -105,7 +104,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * </p>
      * .
      *
-     * @param request   request
+     * @param request request
      * @param validCode code
      */
     public void setGeneratedValidCode(HttpServletRequest request, ValidateCode validCode) {
@@ -125,7 +124,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
     /**
      * 生成验证图片并使用response输出.
      *
-     * @param request  the request
+     * @param request the request
      * @param response the response
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -250,7 +249,7 @@ public class ValidateCodeAuthenticator<A extends Actor> extends AbstractWebAuthe
      * Validate.
      *
      * @param validcode the validcode
-     * @param request   the request
+     * @param request the request
      * @return true, if successful
      */
     public boolean validate(String validcode, HttpServletRequest request) {

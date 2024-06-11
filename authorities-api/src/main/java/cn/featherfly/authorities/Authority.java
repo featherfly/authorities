@@ -1,35 +1,28 @@
 package cn.featherfly.authorities;
 
 /**
- * <p>
- * 许可
- * </p>
+ * Authority.
+ * 许可.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public interface Authority {
     /**
-     * <p>
-     * 返回许可的唯一标识Code
-     * </p>
+     * 返回许可的唯一标识Code.
      *
      * @return code
      */
     String getCode();
 
     /**
-     * <p>
-     * 返回许可的名称
-     * </p>
+     * 返回许可的名称.
      *
      * @return 许可名称
      */
     String getName();
 
     /**
-     * <p>
-     * 返回许可的描述
-     * </p>
+     * 返回许可的描述.
      *
      * @return 许可描述
      */

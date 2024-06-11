@@ -10,7 +10,7 @@ import cn.featherfly.authorities.login.EnvironmentLoginManager;
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
+ * @author zhongj
  */
 public interface WebEnvironmentLoginManager<W extends WebLoginInfo<A>, A extends Actor>
         extends EnvironmentLoginManager<W, A> {

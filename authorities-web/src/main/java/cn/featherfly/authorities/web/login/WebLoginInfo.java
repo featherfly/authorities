@@ -10,7 +10,7 @@ import cn.featherfly.authorities.login.LoginInfo;
  * 
  * @param <A>
  *            行动者具体类型
- * @author 钟冀
+ * @author zhongj
  */
 public class WebLoginInfo<A extends Actor> extends LoginInfo<A> {
 

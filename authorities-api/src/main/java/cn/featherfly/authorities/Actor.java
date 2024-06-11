@@ -3,63 +3,77 @@ package cn.featherfly.authorities;
 import java.util.List;
 
 /**
- * <p>
- * 行动者
- * </p>
+ * actor.
+ * 行动者.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public interface Actor {
 
+    /**
+     * The Enum ActorType.
+     *
+     * @author zhongj
+     */
     enum ActorType {
+        /** The user. */
         USER,
+        /** The system. */
         SYSTEM
     }
 
     /**
-     * <p>
-     * 返回字符串表示的唯一标示
-     * </p>
+     * 返回字符串表示的唯一标示.
      *
      * @return 字符串表示的唯一标示
      */
     String getId();
 
     /**
-     * 是否可用
+     * 是否可用.
      *
      * @return available
      */
     boolean isAvailable();
 
     /**
-     * <p>
-     * 获取名称
-     * </p>
+     * 获取名称.
      *
      * @return 名称
      */
     String getName();
 
     /**
-     * <p>
-     * 获取描述信息
-     * </p>
+     * 获取描述信息.
      *
      * @return 描述信息
      */
     String getDescp();
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     ActorType getType();
 
+    /**
+     * Checks for role.
+     *
+     * @param role the role
+     * @return true, if successful
+     */
     boolean hasRole(Role role);
 
+    /**
+     * Gets the roles.
+     *
+     * @return the roles
+     */
     List<Role> getRoles();
 
     /**
-     * <p>
      * 返回是否拥有指定的权限.
-     * </p>
      *
      * @param authority 权限
      * @return 是否拥有指定的权限
@@ -67,27 +81,21 @@ public interface Actor {
     boolean hasAuthority(Authority authority);
 
     /**
-     * <p>
-     * 返回行动者拥有的许可
-     * </p>
+     * 返回行动者拥有的许可.
      *
      * @return 行动者拥有的许可
      */
     List<Authority> getOwnAuthoritys();
 
     /**
-     * <p>
-     * 返回行动者可以看到的许可
-     * </p>
+     * 返回行动者可以看到的许可.
      *
      * @return 行动者可以看到的许可
      */
     List<Authority> getReadbleAuthoritys();
 
     /**
-     * <p>
-     * 返回行动者可以对其他人授权的权限
-     * </p>
+     * 返回行动者可以对其他人授权的权限.
      *
      * @return 行动者可以对其他人授权的权限
      */

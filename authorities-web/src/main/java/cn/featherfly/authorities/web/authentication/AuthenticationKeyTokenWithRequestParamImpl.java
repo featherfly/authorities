@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 
@@ -15,6 +13,7 @@ import cn.featherfly.common.algorithm.MD5;
 import cn.featherfly.common.algorithm.SHA;
 import cn.featherfly.common.lang.AssertIllegalArgument;
 import cn.featherfly.common.lang.Lang;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * AuthenticationKeyToolV2.
@@ -28,7 +27,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * this construct is for decode.
      *
-     * @param signature         the signature
+     * @param signature the signature
      * @param authenticationKey the authentication key
      */
     public AuthenticationKeyTokenWithRequestParamImpl(String signature, String authenticationKey) {
@@ -39,13 +38,13 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * this construct is for encode.
      *
-     * @param token        the token
-     * @param identity     the identity
-     * @param timestamp    the timestamp
+     * @param token the token
+     * @param identity the identity
+     * @param timestamp the timestamp
      * @param requestDescp the request descp
      */
     public AuthenticationKeyTokenWithRequestParamImpl(String token, String identity, Long timestamp,
-            String requestDescp) {
+        String requestDescp) {
         setSignature(token, timestamp, requestDescp);
         setAuthenticationKey(identity, timestamp, requestDescp);
     }
@@ -83,7 +82,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * 验证token.
      *
-     * @param token   token
+     * @param token token
      * @param request request
      * @return token和request是否正确 boolean
      */
@@ -104,7 +103,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     public String getRequestDescp(HttpServletRequest request) {
         String requestDescp = null;
         if (Lang.isNotEmpty(request.getContentType())
-                && MediaType.APPLICATION_JSON.includes(MediaType.parseMediaType(request.getContentType()))) {
+            && MediaType.APPLICATION_JSON.includes(MediaType.parseMediaType(request.getContentType()))) {
             requestDescp = request.getRequestURL() + "?" + getRequestBody(request);
         } else {
             requestDescp = createRequestDescpWithParameter(request);
@@ -159,7 +158,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
 
     private String getRequestBody(HttpServletRequest servletRequest) {
         String charset = servletRequest.getCharacterEncoding() == null ? StandardCharsets.UTF_8.displayName()
-                : servletRequest.getCharacterEncoding();
+            : servletRequest.getCharacterEncoding();
         try {
             return IOUtils.toString(servletRequest.getInputStream(), charset);
         } catch (IOException e) {
@@ -170,8 +169,8 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * Sets signature.
      *
-     * @param token        the token
-     * @param timestamp    the timestamp
+     * @param token the token
+     * @param timestamp the timestamp
      * @param requestDescp the request descp
      */
     public void setSignature(String token, Long timestamp, String requestDescp) {
@@ -179,7 +178,7 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     }
 
     private String generateSignature(String token, Long timestamp, String requestDescp,
-            boolean isOriginalRequestDescp) {
+        boolean isOriginalRequestDescp) {
         try {
             if (isOriginalRequestDescp) {
                 requestDescp = MD5.encrypt(requestDescp);
@@ -193,8 +192,8 @@ public class AuthenticationKeyTokenWithRequestParamImpl extends AbstractAuthenti
     /**
      * Sets authentication key.
      *
-     * @param identity     the identity
-     * @param timestamp    the timestamp
+     * @param identity the identity
+     * @param timestamp the timestamp
      * @param requestDescp the request descp
      */
     public void setAuthenticationKey(String identity, Long timestamp, String requestDescp) {

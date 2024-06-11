@@ -13,7 +13,7 @@ import cn.featherfly.authorities.Actor;
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
+ * @author zhongj
  * @deprecated use {@link AbstractCacheableWebActorLoginStorage} instead
  */
 @Deprecated

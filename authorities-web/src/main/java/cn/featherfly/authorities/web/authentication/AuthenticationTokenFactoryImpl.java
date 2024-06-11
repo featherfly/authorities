@@ -1,28 +1,34 @@
 
 package cn.featherfly.authorities.web.authentication;
 
-import javax.servlet.http.HttpServletRequest;
-
 import cn.featherfly.common.lang.Lang;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- * AuthenticationTokenFactory
- * </p>
- * 
+ * AuthenticationTokenFactory.
  *
  * @author zhongj
  */
 public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactory {
 
+    /**
+     * The Enum AuthenticationTokens.
+     *
+     * @author zhongj
+     */
     public enum AuthenticationTokens {
-        SimpleAuthenticationToken, AuthenticationKeyToken, AuthenticationKeyTokenWithRequestParam
+        /** The Simple authentication token. */
+        SimpleAuthenticationToken,
+        /** The Authentication key token. */
+        AuthenticationKeyToken,
+        /** The Authentication key token with request param. */
+        AuthenticationKeyTokenWithRequestParam
     }
 
     private AuthenticationTokens type = AuthenticationTokens.SimpleAuthenticationToken;
 
     /**
-     * 返回type
+     * 返回type.
      *
      * @return type
      */
@@ -31,7 +37,7 @@ public class AuthenticationTokenFactoryImpl implements AuthenticationTokenFactor
     }
 
     /**
-     * 设置type
+     * 设置type.
      *
      * @param type type
      */

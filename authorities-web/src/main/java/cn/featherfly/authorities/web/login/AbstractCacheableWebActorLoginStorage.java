@@ -13,28 +13,29 @@ import cn.featherfly.authorities.Actor;
 /**
  * abstract cachable WebActorLoginStorage.
  *
+ * @author zhongj
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
  */
 public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginInfo<A>, A extends Actor>
-        implements WebActorLoginStorage<W, A> {
+    implements WebActorLoginStorage<W, A> {
 
     private Cache<String, W> cache;
+    private Cache<String, String> keyCache;
 
     /**
      * Instantiates a new abstract cacheable web actor login storage.
      *
      * @param cache the cache
+     * @param keyCache the key cache
      */
-    protected AbstractCacheableWebActorLoginStorage(Cache<String, W> cache) {
+    protected AbstractCacheableWebActorLoginStorage(Cache<String, W> cache, Cache<String, String> keyCache) {
         this.cache = cache;
+        this.keyCache = keyCache;
     }
 
     /**
-     * <p>
-     * 创建LoginInfo
-     * </p>
+     * 创建LoginInfo.
      *
      * @return 登陆信息
      */
@@ -50,6 +51,7 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
         webLoginInfo.setLoginTime(new Date());
         webLoginInfo.setSession(key);
         cache.put(key, webLoginInfo);
+        keyCache.put(actor.getId(), key);
     }
 
     /**
@@ -57,7 +59,14 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
      */
     @Override
     public void remove(String key) {
+        if (key == null) {
+            return;
+        }
+        W webLoginInfo = cache.get(key);
         cache.remove(key);
+        if (webLoginInfo != null) {
+            keyCache.remove(webLoginInfo.getActor().getId());
+        }
     }
 
     /**
@@ -65,9 +74,15 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
      */
     @Override
     public void remove(A actor) {
-        if (actor != null) {
-            remove(getLoginInfo(actor).getSession());
+        if (actor == null) {
+            return;
         }
+        String key = keyCache.get(actor.getId());
+        keyCache.remove(actor.getId());
+        if (key != null) {
+            remove(key);
+        }
+        //remove(getLoginInfo(actor).getSession());
     }
 
     /**
@@ -83,18 +98,14 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
      */
     @Override
     public W getLoginInfo(A actor) {
-        if (actor != null) {
-            Iterator<Entry<String, W>> iter = cache.iterator();
-            while (iter.hasNext()) {
-                Entry<String, W> e = iter.next();
-                // TODO 后续是否直接使用actor.equals(actor)
-                W w = e.getValue();
-                if (w.getActor().getId().equals(actor.getId())) {
-                    return w;
-                }
-            }
+        if (actor == null) {
+            return null;
         }
-        return null;
+        String key = keyCache.get(actor.getId());
+        if (key == null) {
+            return null;
+        }
+        return cache.get(key);
     }
 
     /**

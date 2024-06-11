@@ -1,9 +1,8 @@
 
 package cn.featherfly.authorities.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import cn.featherfly.authorities.AuthorityFacotry;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * <p>

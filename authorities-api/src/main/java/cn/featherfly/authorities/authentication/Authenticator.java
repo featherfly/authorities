@@ -7,7 +7,7 @@ import cn.featherfly.authorities.Actor;
  *
  * @param <A> 泛型，用于具体行动者的定义
  * @param <E> 泛型，用于具体依赖环境的定义
- * @author 钟冀
+ * @author zhongj
  */
 public interface Authenticator<A extends Actor, E> {
     /**

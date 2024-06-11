@@ -1,10 +1,7 @@
 package cn.featherfly.authorities.web.authentication;
 
 /**
- * <p>
- * AuthenticationKeyTokenV1
- * </p>
- * 
+ * AuthenticationKeyTokenV1.
  *
  * @author zhongj
  */
@@ -12,18 +9,23 @@ public abstract class AbstractAuthenticationKeyToken implements AuthenticationKe
 
     private static final String AK_SPLIT_SIGN = ":";
 
+    /** The identity. */
     protected String identity;
 
+    /** The signature. */
     protected String signature;
 
+    /** The authentication key. */
     protected String authenticationKey;
 
+    /** The timestamp. */
     protected Long timestamp;
 
+    /** The ak split sign. */
     protected String akSplitSign = AK_SPLIT_SIGN;
 
     /**
-     * 返回akSplitSign
+     * 返回akSplitSign.
      *
      * @return akSplitSign
      */
@@ -32,7 +34,7 @@ public abstract class AbstractAuthenticationKeyToken implements AuthenticationKe
     }
 
     /**
-     * 设置akSplitSign
+     * 设置akSplitSign.
      *
      * @param akSplitSign akSplitSign
      */
@@ -80,7 +82,9 @@ public abstract class AbstractAuthenticationKeyToken implements AuthenticationKe
     }
 
     /**
-     * 根据AuthenticationKey对应的时间戳
+     * 根据AuthenticationKey对应的时间戳.
+     *
+     * @return the timestamp
      */
     @Override
     public Long getTimestamp() {

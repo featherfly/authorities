@@ -1,12 +1,12 @@
 package cn.featherfly.authorities.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * AuthorizedInterceptor.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class WebEnv {
 
@@ -23,7 +23,7 @@ public class WebEnv {
     /**
      * Instantiates a new web env.
      *
-     * @param request  the request
+     * @param request the request
      * @param response the response
      */
     public WebEnv(HttpServletRequest request, HttpServletResponse response) {

@@ -3,9 +3,6 @@ package cn.featherfly.authorities.web;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,19 +14,17 @@ import cn.featherfly.authorities.web.login.WebLoginManager;
 import cn.featherfly.common.lang.Lang;
 import cn.featherfly.common.locale.ResourceBundleUtils;
 import cn.featherfly.web.spring.servlet.view.Result;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * <p>
- * WebAuthorityChecker
- * </p>
+ * WebAuthorityChecker.
  *
  * @author zhongj
  */
 public class WebAuthorityChecker extends AbstractChecker implements AuthorityChecker<WebEnv> {
 
-    /**
-     * logger
-     */
+    /** logger. */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private WebLoginManager<?, ?> loginManager;
@@ -55,7 +50,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
                     authorityName = request.getMethod().toUpperCase() + ":" + uri;
                 }
                 result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "authority.not.auth",
-                        new Object[] { authorityName }));
+                    new Object[] { authorityName }));
                 if (request.getHeader("Accept").contains("application/json")) {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     render(response, result);
@@ -81,7 +76,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     }
 
     /**
-     * 设置loginManager
+     * 设置loginManager.
      *
      * @param loginManager loginManager
      */
@@ -90,7 +85,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     }
 
     /**
-     * 设置redirectURL
+     * 设置redirectURL.
      *
      * @param redirectURL redirectURL
      */
@@ -99,7 +94,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     }
 
     /**
-     * 设置autoRedirect
+     * 设置autoRedirect.
      *
      * @param autoRedirect autoRedirect
      */
@@ -108,7 +103,7 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     }
 
     /**
-     * 设置facotry
+     * 设置facotry.
      *
      * @param facotry facotry
      */

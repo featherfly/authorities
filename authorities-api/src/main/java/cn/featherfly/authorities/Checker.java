@@ -2,9 +2,7 @@
 package cn.featherfly.authorities;
 
 /**
- * <p>
- * Authorizer
- * </p>
+ * Checker.
  *
  * @author zhongj
  */

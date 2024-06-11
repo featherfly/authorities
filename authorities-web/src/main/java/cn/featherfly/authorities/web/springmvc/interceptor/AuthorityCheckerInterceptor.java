@@ -1,27 +1,24 @@
 package cn.featherfly.authorities.web.springmvc.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.featherfly.authorities.web.WebAuthorityChecker;
 import cn.featherfly.authorities.web.WebEnv;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * <p>
- * AuthorityCheckerInterceptor
- * </p>
+ * AuthorityCheckerInterceptor.
  *
- * @author 钟冀
+ * @author zhongj
  */
 public class AuthorityCheckerInterceptor implements HandlerInterceptor {
 
     private WebAuthorityChecker authorityChecker;
 
     /**
-     *
+     * Instantiates a new authority checker interceptor.
      */
     public AuthorityCheckerInterceptor() {
     }
@@ -31,7 +28,7 @@ public class AuthorityCheckerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+        throws Exception {
         return authorityChecker.check(new WebEnv(request, response));
     }
 
@@ -41,7 +38,7 @@ public class AuthorityCheckerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {
+        ModelAndView modelAndView) throws Exception {
     }
 
     /**
@@ -49,11 +46,11 @@ public class AuthorityCheckerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-            throws Exception {
+        throws Exception {
     }
 
     /**
-     * 设置authorityChecker
+     * 设置authorityChecker.
      *
      * @param authorityChecker authorityChecker
      */

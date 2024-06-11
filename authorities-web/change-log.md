@@ -1,3 +1,6 @@
+# 1.0.0 2024-06-11
+1.  升级spring5到spring6,jdk8到jdk17
+
 # 0.4.4 2023-02-15
 1. 不兼容依赖版本升级
 
@@ -19,7 +22,7 @@
 # 0.3.1 2021-04-14
 
 1. 修复AuthenticationKeyTokenWithRequestParamImpl, AuthenticationKeyTokenImpl解码错误
-    
+   
 # 0.3.0 2020-05-22
 1. 模块改名
 2. 新增Checker,AuthorityChecker,AuthenticatedChecker
@@ -36,13 +39,13 @@
 2. ValidCodeAuthenticator加入generateValidCodeImage(HttpServletRequest request, HttpServletResponse response)方法
 3. 加入AuthenticationToken一些列接口以及实现
 4. 加入WebApplicationLoginManagerTokenImpl,PermissionInterceptor（未测试，0.2.0发布时测试完成）
-    
+   
 # 0.1.12 2017-08-16
 1. ApplicationLoginManager加入List<I> getLoginInfos()
-    
+   
 # 0.1.10 2016-12-08 
 1. ValidCodeAuthenticator加入忽略大小写设置
-    
+   
 # 0.1.9 2016-11-25
 1. 加入ValidCodeAuthenticator，废弃ValidateCodeAuthenticator
 2. Exception继承自LocalizedException

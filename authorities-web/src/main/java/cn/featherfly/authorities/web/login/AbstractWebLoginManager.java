@@ -3,9 +3,6 @@ package cn.featherfly.authorities.web.login;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,16 +14,18 @@ import cn.featherfly.authorities.login.LoginListener;
 import cn.featherfly.authorities.web.authentication.WebAuthenticator;
 import cn.featherfly.common.lang.Lang;
 import cn.featherfly.web.servlet.ServletUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * AbstractWebLoginManager.
  *
- * @author 钟冀
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
+ * @author zhongj
  */
 public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A extends Actor>
-        implements WebLoginManager<W, A> {
+    implements WebLoginManager<W, A> {
 
     /** The logger. */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -58,7 +57,7 @@ public abstract class AbstractWebLoginManager<W extends WebLoginInfo<A>, A exten
         if (info != null && checkCrossSession) {
             if (!info.getActor().getId().equals(actor.getId())) {
                 logger.debug("当前会话已经存在登录用户{}，注销登录用户{}并登录当前用户{}", info.getActor().getName(), info.getActor().getName(),
-                        actor.getDescp());
+                    actor.getDescp());
                 logout(info.getActor());
                 //                throw new AuthenticationException("@permission#session.with.account");
             }

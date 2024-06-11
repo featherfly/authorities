@@ -5,7 +5,7 @@ import cn.featherfly.authorities.Actor;
 /**
  * web环境简单实现，不支持集群.
  *
- * @author 钟冀
+ * @author zhongj
  * @deprecated use {@link CacheableWebActorLoginStorageImpl} instead
  */
 @Deprecated

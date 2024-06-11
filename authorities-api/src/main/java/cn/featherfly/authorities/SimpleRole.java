@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- * SimpleRole
- * </p>
+ * SimpleRole.
  *
  * @author zhongj
  */
@@ -31,9 +29,7 @@ public class SimpleRole implements Role {
     private Map<String, Actor> actorMap = new HashMap<>();
 
     /**
-     * 返回code
-     *
-     * @return code
+     * {@inheritDoc}
      */
     @Override
     public String getCode() {
@@ -41,7 +37,7 @@ public class SimpleRole implements Role {
     }
 
     /**
-     * 设置code
+     * 设置code.
      *
      * @param code code
      */
@@ -50,9 +46,7 @@ public class SimpleRole implements Role {
     }
 
     /**
-     * 返回name
-     *
-     * @return name
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -60,7 +54,7 @@ public class SimpleRole implements Role {
     }
 
     /**
-     * 设置name
+     * 设置name.
      *
      * @param name name
      */
@@ -69,9 +63,7 @@ public class SimpleRole implements Role {
     }
 
     /**
-     * 返回descp
-     *
-     * @return descp
+     * {@inheritDoc}
      */
     @Override
     public String getDescp() {
@@ -79,7 +71,7 @@ public class SimpleRole implements Role {
     }
 
     /**
-     * 设置descp
+     * 设置descp.
      *
      * @param descp descp
      */
@@ -103,11 +95,23 @@ public class SimpleRole implements Role {
         return new ArrayList<>(ownAuthorityMap.values());
     }
 
+    /**
+     * Adds the own authority.
+     *
+     * @param authority the authority
+     * @return the simple role
+     */
     public SimpleRole addOwnAuthority(Authority authority) {
         ownAuthorityMap.put(authority.getCode(), authority);
         return this;
     }
 
+    /**
+     * Adds the own authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addOwnAuthority(Authority... authoritys) {
         for (Authority authority : authoritys) {
             ownAuthorityMap.put(authority.getCode(), authority);
@@ -115,6 +119,12 @@ public class SimpleRole implements Role {
         return this;
     }
 
+    /**
+     * Adds the own authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addOwnAuthority(Collection<Authority> authoritys) {
         for (Authority authority : authoritys) {
             ownAuthorityMap.put(authority.getCode(), authority);
@@ -130,11 +140,23 @@ public class SimpleRole implements Role {
         return new ArrayList<>(readableAuthorityMap.values());
     }
 
+    /**
+     * Adds the readble authority.
+     *
+     * @param authority the authority
+     * @return the simple role
+     */
     public SimpleRole addReadbleAuthority(Authority authority) {
         readableAuthorityMap.put(authority.getCode(), authority);
         return this;
     }
 
+    /**
+     * Adds the readble authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addReadbleAuthority(Authority... authoritys) {
         for (Authority authority : authoritys) {
             readableAuthorityMap.put(authority.getCode(), authority);
@@ -142,6 +164,12 @@ public class SimpleRole implements Role {
         return this;
     }
 
+    /**
+     * Adds the readble authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addReadbleAuthority(Collection<Authority> authoritys) {
         for (Authority authority : authoritys) {
             readableAuthorityMap.put(authority.getCode(), authority);
@@ -157,11 +185,23 @@ public class SimpleRole implements Role {
         return new ArrayList<>(authorizableAuthorityMap.values());
     }
 
+    /**
+     * Adds the authorizable authority.
+     *
+     * @param authority the authority
+     * @return the simple role
+     */
     public SimpleRole addAuthorizableAuthority(Authority authority) {
         authorizableAuthorityMap.put(authority.getCode(), authority);
         return this;
     }
 
+    /**
+     * Adds the authorizable authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addAuthorizableAuthority(Authority... authoritys) {
         for (Authority authority : authoritys) {
             authorizableAuthorityMap.put(authority.getCode(), authority);
@@ -169,6 +209,12 @@ public class SimpleRole implements Role {
         return this;
     }
 
+    /**
+     * Adds the authorizable authority.
+     *
+     * @param authoritys the authoritys
+     * @return the simple role
+     */
     public SimpleRole addAuthorizableAuthority(Collection<Authority> authoritys) {
         for (Authority authority : authoritys) {
             authorizableAuthorityMap.put(authority.getCode(), authority);
@@ -184,11 +230,23 @@ public class SimpleRole implements Role {
         return new ArrayList<>(actorMap.values());
     }
 
+    /**
+     * Adds the actor.
+     *
+     * @param actor the actor
+     * @return the simple role
+     */
     public SimpleRole addActor(Actor actor) {
         actorMap.put(actor.getId(), actor);
         return this;
     }
 
+    /**
+     * Adds the actor.
+     *
+     * @param actors the actors
+     * @return the simple role
+     */
     public SimpleRole addActor(Actor... actors) {
         for (Actor actor : actors) {
             actorMap.put(actor.getId(), actor);
@@ -196,6 +254,12 @@ public class SimpleRole implements Role {
         return this;
     }
 
+    /**
+     * Adds the actor.
+     *
+     * @param actors the actors
+     * @return the simple role
+     */
     public SimpleRole addActor(Collection<Actor> actors) {
         for (Actor actor : actors) {
             actorMap.put(actor.getId(), actor);

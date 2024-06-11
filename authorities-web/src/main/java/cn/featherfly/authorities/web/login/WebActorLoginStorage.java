@@ -14,7 +14,7 @@ import cn.featherfly.authorities.login.ActorLoginStorage;
  *            登陆信息
  * @param <A>
  *            行动者具体类型
- * @author 钟冀
+ * @author zhongj
  */
 public interface WebActorLoginStorage<W extends WebLoginInfo<A>, A extends Actor>
         extends ActorLoginStorage<W, A> {

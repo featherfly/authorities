@@ -1,20 +1,17 @@
 package cn.featherfly.authorities.web.login;
 
-import javax.servlet.http.HttpServletRequest;
-
 import cn.featherfly.authorities.Actor;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- * WebLoginManagerSessionImpl
- * </p>
+ * WebLoginManagerSessionImpl.
  *
  * @param <W> 登陆信息
  * @param <A> 行动者具体类型
- * @author 钟冀
+ * @author zhongj
  */
 public class WebLoginManagerSessionImpl<W extends WebLoginInfo<A>, A extends Actor>
-        extends AbstractWebLoginManager<W, A> {
+    extends AbstractWebLoginManager<W, A> {
 
     /**
      */

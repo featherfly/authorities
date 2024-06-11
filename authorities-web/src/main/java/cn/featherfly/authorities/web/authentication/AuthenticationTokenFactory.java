@@ -1,17 +1,21 @@
 
 package cn.featherfly.authorities.web.authentication;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- * AuthenticationTokenFactory
- * </p>
- * 
+ * AuthenticationTokenFactory.
+ *
  * @author zhongj
  */
 public interface AuthenticationTokenFactory {
 
+    /**
+     * Creates the.
+     *
+     * @param request the request
+     * @return the authentication token
+     */
     AuthenticationToken create(HttpServletRequest request);
 
 }
