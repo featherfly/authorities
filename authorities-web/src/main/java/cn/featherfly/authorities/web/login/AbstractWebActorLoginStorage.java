@@ -18,7 +18,7 @@ import cn.featherfly.authorities.Actor;
  */
 @Deprecated
 public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A extends Actor>
-        implements WebActorLoginStorage<W, A> {
+    implements WebActorLoginStorage<W, A> {
 
     private Map<String, W> webLoginInfos = new HashMap<>();
 
@@ -40,12 +40,13 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
      * {@inheritDoc}
      */
     @Override
-    public void store(String key, A actor) {
+    public W store(String key, A actor) {
         W webLoginInfo = createLoginInfo();
         webLoginInfo.setActor(actor);
         webLoginInfo.setLoginTime(new Date());
         webLoginInfo.setSession(key);
         webLoginInfos.put(key, webLoginInfo);
+        return webLoginInfo;
     }
 
     /**

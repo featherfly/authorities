@@ -45,13 +45,14 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
      * {@inheritDoc}
      */
     @Override
-    public void store(String key, A actor) {
+    public W store(String key, A actor) {
         W webLoginInfo = createLoginInfo();
         webLoginInfo.setActor(actor);
         webLoginInfo.setLoginTime(new Date());
         webLoginInfo.setSession(key);
         cache.put(key, webLoginInfo);
         keyCache.put(actor.getId(), key);
+        return webLoginInfo;
     }
 
     /**
