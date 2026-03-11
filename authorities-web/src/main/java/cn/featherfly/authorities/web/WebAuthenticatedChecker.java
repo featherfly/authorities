@@ -2,12 +2,14 @@ package cn.featherfly.authorities.web;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cn.featherfly.authorities.AuthenticatedChecker;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.web.login.WebLoginManager;
+import cn.featherfly.common.api.Response;
 import cn.featherfly.common.lang.LogUtils;
 import cn.featherfly.common.locale.ResourceBundleUtils;
-import cn.featherfly.web.spring.servlet.view.Result;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -23,9 +25,19 @@ public class WebAuthenticatedChecker extends AbstractChecker implements Authenti
     private String authenticateURL = "/";
 
     /**
-     *
+     * Instantiates a new web authenticated checker.
      */
     public WebAuthenticatedChecker() {
+        super(new ObjectMapper());
+    }
+
+    /**
+     * Instantiates a new web authenticated checker.
+     *
+     * @param objectMapper the object mapper
+     */
+    public WebAuthenticatedChecker(ObjectMapper objectMapper) {
+        super(objectMapper);
     }
 
     /**
@@ -33,7 +45,7 @@ public class WebAuthenticatedChecker extends AbstractChecker implements Authenti
      */
     @Override
     protected boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri) {
-        Result<?> result = new Result<>();
+        Response<?> result = new Response<>();
         boolean authenticated = true;
         if (!loginManager.isLogin(request)) {
             try {

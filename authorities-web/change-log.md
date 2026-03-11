@@ -1,5 +1,6 @@
-# 1.0.1 
+# 1.0.1 2026-03-11
 1. ActorLoginStorage store方法返回LoginInfo
+2. 升级依赖cn.featherfly.web:web-springmvc:1.1.0
 
 # 1.0.0 2024-06-11
 1.  升级spring5到spring6,jdk8到jdk17

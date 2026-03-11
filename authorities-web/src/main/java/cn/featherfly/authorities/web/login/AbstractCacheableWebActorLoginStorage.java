@@ -1,7 +1,7 @@
 package cn.featherfly.authorities.web.login;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +21,7 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
     implements WebActorLoginStorage<W, A> {
 
     private Cache<String, W> cache;
+
     private Cache<String, String> keyCache;
 
     /**
@@ -48,7 +49,7 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
     public W store(String key, A actor) {
         W webLoginInfo = createLoginInfo();
         webLoginInfo.setActor(actor);
-        webLoginInfo.setLoginTime(new Date());
+        webLoginInfo.setLoginTime(LocalDateTime.now());
         webLoginInfo.setSession(key);
         cache.put(key, webLoginInfo);
         keyCache.put(actor.getId(), key);
@@ -78,12 +79,11 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
         if (actor == null) {
             return;
         }
-        String key = keyCache.get(actor.getId());
+        String finalKey = keyCache.get(actor.getId());
         keyCache.remove(actor.getId());
-        if (key != null) {
-            remove(key);
+        if (finalKey != null) {
+            remove(finalKey);
         }
-        //remove(getLoginInfo(actor).getSession());
     }
 
     /**
@@ -102,11 +102,11 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
         if (actor == null) {
             return null;
         }
-        String key = keyCache.get(actor.getId());
-        if (key == null) {
+        String finalKey = keyCache.get(actor.getId());
+        if (finalKey == null) {
             return null;
         }
-        return cache.get(key);
+        return cache.get(finalKey);
     }
 
     /**
@@ -142,5 +142,4 @@ public abstract class AbstractCacheableWebActorLoginStorage<W extends WebLoginIn
     public boolean containsKey(String key) {
         return cache.containsKey(key);
     }
-
 }

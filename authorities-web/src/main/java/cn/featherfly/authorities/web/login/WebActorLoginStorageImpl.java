@@ -12,13 +12,17 @@ import cn.featherfly.authorities.Actor;
 public class WebActorLoginStorageImpl extends AbstractWebActorLoginStorage<WebLoginInfo<Actor>, Actor> {
 
     /**
+     * Instantiates a new web actor login storage impl.
      */
+    @Deprecated
     public WebActorLoginStorageImpl() {
+        super();
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     protected WebLoginInfo<Actor> createLoginInfo() {
         return new WebLoginInfo<>();

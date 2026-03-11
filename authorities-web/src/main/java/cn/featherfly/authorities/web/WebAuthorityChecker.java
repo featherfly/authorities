@@ -3,17 +3,16 @@ package cn.featherfly.authorities.web;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.featherfly.authorities.Actor;
 import cn.featherfly.authorities.Authority;
 import cn.featherfly.authorities.AuthorityChecker;
 import cn.featherfly.authorities.AuthorityException;
 import cn.featherfly.authorities.web.login.WebLoginManager;
+import cn.featherfly.common.api.Response;
 import cn.featherfly.common.lang.Lang;
 import cn.featherfly.common.locale.ResourceBundleUtils;
-import cn.featherfly.web.spring.servlet.view.Result;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -24,9 +23,6 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class WebAuthorityChecker extends AbstractChecker implements AuthorityChecker<WebEnv> {
 
-    /** logger. */
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private WebLoginManager<?, ?> loginManager;
 
     private String redirectURL;
@@ -36,43 +32,62 @@ public class WebAuthorityChecker extends AbstractChecker implements AuthorityChe
     private WebAuthorityFacotry facotry;
 
     /**
+     * Instantiates a new web authority checker.
+     */
+    public WebAuthorityChecker() {
+        super(new ObjectMapper());
+    }
+
+    /**
+     * Instantiates a new web authority checker.
+     *
+     * @param objectMapper the object mapper
+     */
+    public WebAuthorityChecker(ObjectMapper objectMapper) {
+        super(objectMapper);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     protected boolean doCheck(HttpServletRequest request, HttpServletResponse response, String uri) {
-        Result<?> result = new Result<>();
+        Response<?> result = new Response<>();
         Authority authority = facotry.create(request);
-        if (authority != null) {
-            Actor actor = loginManager.getLoginInfo(request).getActor();
-            if (!actor.hasAuthority(authority)) {
-                String authorityName = authority.getName();
-                if (Lang.isEmpty(authorityName)) {
-                    authorityName = request.getMethod().toUpperCase() + ":" + uri;
-                }
-                result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "authority.not.auth",
-                    new Object[] { authorityName }));
-                if (request.getHeader("Accept").contains("application/json")) {
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    render(response, result);
+        if (authority == null) {
+            return true;
+        }
+
+        Actor actor = loginManager.getLoginInfo(request).getActor();
+        if (actor.hasAuthority(authority)) {
+            return true;
+        }
+
+        String authorityName = authority.getName();
+        if (Lang.isEmpty(authorityName)) {
+            authorityName = request.getMethod().toUpperCase() + ":" + uri;
+        }
+        result.setMessage(ResourceBundleUtils.getString(AuthorityException.class, "authority.not.auth",
+            new Object[] { authorityName }));
+        if (request.getHeader("Accept").contains("application/json")) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            render(response, result);
+        } else {
+            String location = redirectURL;
+            if (Lang.isEmpty(location)) {
+                location = request.getHeader("Referer");
+            }
+            try {
+                if (autoRedirect && Lang.isNotEmpty(location)) {
+                    response.sendRedirect(location);
                 } else {
-                    String location = redirectURL;
-                    if (Lang.isEmpty(location)) {
-                        location = request.getHeader("Referer");
-                    }
-                    try {
-                        if (autoRedirect && Lang.isNotEmpty(location)) {
-                            response.sendRedirect(location);
-                        } else {
-                            response.sendError(HttpServletResponse.SC_FORBIDDEN, result.getMessage());
-                        }
-                    } catch (IOException e) {
-                        throw new AuthorityException(e);
-                    }
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, result.getMessage());
                 }
-                return false;
+            } catch (IOException e) {
+                throw new AuthorityException(e);
             }
         }
-        return true;
+        return false;
     }
 
     /**

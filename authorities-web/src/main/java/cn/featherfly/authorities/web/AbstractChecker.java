@@ -28,7 +28,7 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
     /** logger. */
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
@@ -37,6 +37,16 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
 
     /** The excludes. */
     protected Collection<String> excludes = new HashSet<>();
+
+    /**
+     * Instantiates a new abstract checker.
+     *
+     * @param objectMapper the object mapper
+     */
+    protected AbstractChecker(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+        this.objectMapper.setSerializationInclusion(Include.NON_EMPTY);
+    }
 
     /**
      * {@inheritDoc}
@@ -71,7 +81,7 @@ public abstract class AbstractChecker implements AuthorityChecker<WebEnv> {
         try {
             response.setContentType("application/json;charset=" + charset);
             response.setCharacterEncoding(charset);
-            objectMapper.setSerializationInclusion(Include.NON_EMPTY).writerFor(result.getClass())
+            objectMapper.writerFor(result.getClass())
                 .writeValue(response.getOutputStream(), result);
         } catch (IOException e) {
             throw new AuthorityException(e);

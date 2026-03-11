@@ -1,6 +1,6 @@
 package cn.featherfly.authorities.login;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +26,7 @@ public class LoginInfo<A extends Actor> {
 
     private A actor;
 
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
     private Authentication authentication;
 
@@ -55,7 +55,7 @@ public class LoginInfo<A extends Actor> {
      *
      * @return loginTime
      */
-    public Date getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
@@ -64,7 +64,7 @@ public class LoginInfo<A extends Actor> {
      *
      * @param loginTime loginTime
      */
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 
@@ -103,7 +103,7 @@ public class LoginInfo<A extends Actor> {
     /**
      * 设置属性
      *
-     * @param name  属性名称
+     * @param name 属性名称
      * @param value 属性值
      */
     public void set(String name, Object value) {

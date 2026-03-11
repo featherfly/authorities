@@ -1,7 +1,7 @@
 package cn.featherfly.authorities.web.login;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +24,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
 
     /**
      */
+    @Deprecated
     public AbstractWebActorLoginStorage() {
     }
 
@@ -34,16 +35,18 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
      *
      * @return 登陆信息
      */
+    @Deprecated
     protected abstract W createLoginInfo();
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public W store(String key, A actor) {
         W webLoginInfo = createLoginInfo();
         webLoginInfo.setActor(actor);
-        webLoginInfo.setLoginTime(new Date());
+        webLoginInfo.setLoginTime(LocalDateTime.now());
         webLoginInfo.setSession(key);
         webLoginInfos.put(key, webLoginInfo);
         return webLoginInfo;
@@ -52,6 +55,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public void remove(A actor) {
         if (actor != null) {
@@ -62,6 +66,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public void remove(String key) {
         webLoginInfos.remove(key);
@@ -70,6 +75,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public W getLoginInfo(String key) {
         return webLoginInfos.get(key);
@@ -78,6 +84,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public W getLoginInfo(A actor) {
         if (actor != null) {
@@ -93,6 +100,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public List<A> getLoginActors() {
         ArrayList<A> actors = new ArrayList<>();
@@ -106,6 +114,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public List<W> getLoginInfos() {
         return new ArrayList<>(webLoginInfos.values());
@@ -114,6 +123,7 @@ public abstract class AbstractWebActorLoginStorage<W extends WebLoginInfo<A>, A 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public boolean containsKey(String key) {
         return webLoginInfos.containsKey(key);
